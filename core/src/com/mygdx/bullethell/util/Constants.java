@@ -1,5 +1,10 @@
 package com.mygdx.bullethell.util;
 
+/**
+ * Stores constants the game may wish to track.
+ *
+ * @author Aaron Wink
+ */
 public class Constants
 {
     // Visible game world is 5m wide, 5m tall
