@@ -11,4 +11,6 @@ public class Constants
     public static final float VIEWPORT_WIDTH = 5.0f;
     public static final float VIEWPORT_HEIGHT = 5.0f;
     
+    // Location of texture atlas
+    public static final String TEXTURE_ATLAS_OBJECTS = "images/bhgame.atlas";
 }
