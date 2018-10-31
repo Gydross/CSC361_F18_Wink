@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.bullethell.util.CameraHelper;
+import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
@@ -58,10 +59,9 @@ public class WorldController extends InputAdapter
         {
             Sprite spr = new Sprite(reg.random());
             
-            // this was hellfire to figure out, but:
-            // for 1x sprites: use 0.00775f
-            // for 2x sprites: use 0.0155f
-            spr.setSize(spr.getWidth() * 0.0155f, spr.getHeight() * 0.0155f);
+            // Scaling constants may be found in Constants.
+            spr.setSize(spr.getWidth() * Constants.SCALETWO, 
+                    spr.getHeight() * Constants.SCALETWO);
             spr.setOrigin(spr.getWidth() / 2.0f, spr.getHeight() / 2.0f);
             
             // Calculates a random position for the new sprite.
