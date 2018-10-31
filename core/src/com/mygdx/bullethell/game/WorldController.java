@@ -4,6 +4,12 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+<<<<<<< HEAD
+=======
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
+>>>>>>> Milestone1
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.bullethell.util.CameraHelper;
@@ -18,7 +24,10 @@ import com.badlogic.gdx.utils.Array;
  */
 public class WorldController extends InputAdapter
 {
+<<<<<<< HEAD
     @SuppressWarnings("unused")
+=======
+>>>>>>> Milestone1
     private static final String TAG = WorldController.class.getName();
     
     public Sprite[] testSprites;
@@ -73,10 +82,43 @@ public class WorldController extends InputAdapter
         selSprite = 0;  // Sets first sprite as currently selected.
     }
     
+<<<<<<< HEAD
     public void update (float dt)
     {
         handleInput(dt);
         rotateBullet(dt);
+=======
+    /**
+     * Creates a procedural pixmap.
+     * @param w - The width of the pixmap.
+     * @param h - The height of the pixmap.
+     * @return px - The generated pixmap.
+     */
+    private Pixmap createProceduralPixmap(int w, int h)
+    {
+        Pixmap px = new Pixmap(w, h, Format.RGBA8888);
+        
+        // Fill square with red @ half alpha
+        px.setColor(1,0,0,0.5f);
+        px.fill();
+        
+        // Draw a yellow X on square
+        px.setColor(1,1,0,1);
+        px.drawLine(0, 0, w, h);
+        px.drawLine(w, 0, 0, h);
+        
+        // Draw a cyan border on square
+        px.setColor(0,1,1,1);
+        px.drawRectangle(0, 0, w, h);
+        
+        return px;
+    }
+    
+    public void update (float dt)
+    {
+        handleDebugInput(dt);
+        updateTestObjects(dt);
+>>>>>>> Milestone1
         ch.update(dt);
     }
     
@@ -84,11 +126,16 @@ public class WorldController extends InputAdapter
      * Processed the debug input.
      * @param dt - Change in time since last update.
      */
+<<<<<<< HEAD
     private void handleInput(float dt)
+=======
+    private void handleDebugInput(float dt)
+>>>>>>> Milestone1
     {
         if (Gdx.app.getType() != ApplicationType.Desktop)
             return;
         
+<<<<<<< HEAD
         // Movement speed
         float mspeed = 3 * dt;
         if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
@@ -107,6 +154,72 @@ public class WorldController extends InputAdapter
         
         if (Gdx.input.isKeyPressed(Keys.DOWN))
             moveSelectedSprite(0, -mspeed);
+=======
+        // Box debug
+        float mspeed = 4 * dt;
+        
+        if (Gdx.input.isKeyPressed(Keys.A))
+            moveSelectedSprite(-mspeed, 0);
+
+        if (Gdx.input.isKeyPressed(Keys.D))
+            moveSelectedSprite(mspeed, 0);
+        
+        if (Gdx.input.isKeyPressed(Keys.W))
+            moveSelectedSprite(0, mspeed);
+        
+        if (Gdx.input.isKeyPressed(Keys.S))
+            moveSelectedSprite(0, -mspeed);
+        
+        // Camera debug
+        float camSpeed = mspeed;
+        float camAccel = 2;
+        
+        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
+            camSpeed *= camAccel;
+        
+        if (Gdx.input.isKeyPressed(Keys.LEFT))
+            moveCamera(-camSpeed, 0);
+        
+        if (Gdx.input.isKeyPressed(Keys.RIGHT))
+            moveCamera(camSpeed, 0);
+        
+        if (Gdx.input.isKeyPressed(Keys.UP))
+            moveCamera(0, camSpeed);
+        
+        if (Gdx.input.isKeyPressed(Keys.DOWN))
+            moveCamera(0, -camSpeed);
+        
+        if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
+            ch.setPos(0, 0);
+        
+        // Zoom test
+        float zoomSpeed = 1 * dt;
+        float zoomAccel = 2;
+        
+        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
+            zoomSpeed *= zoomAccel;
+        
+        if (Gdx.input.isKeyPressed(Keys.COMMA))
+            ch.addZoom(zoomSpeed);
+        
+        if (Gdx.input.isKeyPressed(Keys.PERIOD))
+            ch.addZoom(-zoomSpeed);
+        
+        if (Gdx.input.isKeyPressed(Keys.SLASH))
+            ch.setZoom(1);
+    }
+    
+    /**
+     * Another part of these annoying ass debug methods.
+     * @param x - The desired x coord.
+     * @param y - The desired y coord.
+     */
+    private void moveCamera(float x, float y)
+    {
+        x += ch.getPos().x;
+        y += ch.getPos().y;
+        ch.setPos(x, y);
+>>>>>>> Milestone1
     }
     
     /**
@@ -120,6 +233,7 @@ public class WorldController extends InputAdapter
     }
     
     /**
+<<<<<<< HEAD
      * Updates the rotation of a specific bullet.
      * @param bullet - The sbullet to be rotated.
      * @param dt - Change in time since last update
@@ -130,5 +244,38 @@ public class WorldController extends InputAdapter
         //rot += 90 * dt;  // Rotates by 90deg/sec
         //rot %= 360;      // Wraps rotation @ 360deg
         //testSprites[selSprite].setRotation(rot);
+=======
+     * Updates the rotation of the test sprites.
+     * @param dt - Change in time since last update
+     */
+    private void updateTestObjects(float dt)
+    {
+        float rot = testSprites[selSprite].getRotation();  // Current sprite rotation
+        rot += 90 * dt;  // Rotates by 90deg/sec
+        rot %= 360;      // Wraps rotation @ 360deg
+        testSprites[selSprite].setRotation(rot);
+    }
+    
+    @Override
+    public boolean keyUp(int keycode)
+    {
+        // Reset the game world.
+        if (keycode == Keys.R) 
+        {
+            init();
+            Gdx.app.debug(TAG, "Game world has been reset.");
+        } else if (keycode == Keys.SPACE) {
+            selSprite = (selSprite + 1) % testSprites.length;
+            // Updates the camera's target.
+            if (ch.hasTarget())
+                ch.setTarget(testSprites[selSprite]);
+            Gdx.app.debug(TAG,  "Sprite #" + selSprite + "selected.");
+        } else if (keycode == Keys.ENTER) {
+            ch.setTarget(ch.hasTarget() ? null : testSprites[selSprite]);
+            Gdx.app.debug(TAG, "Camera follow enabled: " + ch.hasTarget());
+        }
+            
+        return false;
+>>>>>>> Milestone1
     }
 }

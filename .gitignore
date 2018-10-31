@@ -123,3 +123,11 @@ Thumbs.db
 !/ios-moe/xcode/*.xcodeproj/xcshareddata
 !/ios-moe/xcode/*.xcodeproj/project.pbxproj
 /ios-moe/xcode/native/
+
+core/src/com/mygdx/bullethell/util/CameraHelper\.java
+
+core/src/com/mygdx/bullethell/game/WorldController\.java
+
+core/src/com/mygdx/bullethell/game/Assets\.java
+
+core/src/com/mygdx/bullethell/BulletHellGame\.java

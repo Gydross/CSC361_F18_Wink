@@ -8,6 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+<<<<<<< HEAD
+=======
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+>>>>>>> Milestone1
 
 /**
  * Manages assets for the game.
@@ -64,7 +69,11 @@ public class Assets implements Disposable, AssetErrorListener
      * Handles fatal errors resulting from trying to load assets.
      */
     @Override
+<<<<<<< HEAD
     public void error(@SuppressWarnings("rawtypes") AssetDescriptor asset, Throwable throwable)
+=======
+    public void error(AssetDescriptor asset, Throwable throwable)
+>>>>>>> Milestone1
     {
         Gdx.app.error(TAG, "Couldn't load asset'" + asset.fileName + "'", (Exception)throwable);
     }

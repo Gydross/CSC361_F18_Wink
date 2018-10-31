@@ -1,8 +1,12 @@
 package com.mygdx.bullethell;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.mygdx.bullethell.game.WorldController;
+import com.mygdx.bullethell.game.WorldRenderer;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.graphics.GL20;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -32,6 +36,8 @@ public class BulletHellGame extends ApplicationAdapter {
 		img.dispose();
 	}
 =======
+=======
+>>>>>>> Milestone1
 import com.badlogic.gdx.assets.AssetManager;
 import com.mygdx.bullethell.game.Assets;
 
@@ -42,7 +48,10 @@ import com.mygdx.bullethell.game.Assets;
  */
 public class BulletHellGame implements ApplicationListener
 {
+<<<<<<< HEAD
     @SuppressWarnings("unused")
+=======
+>>>>>>> Milestone1
     private static final String TAG = BulletHellGame.class.getName();
     private WorldController wc;
     private WorldRenderer wr;
@@ -114,5 +123,8 @@ public class BulletHellGame implements ApplicationListener
         Assets.instance.dispose();
     }
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> Milestone1
 }
