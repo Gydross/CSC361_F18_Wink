@@ -6,6 +6,8 @@ import com.mygdx.bullethell.game.WorldController;
 import com.mygdx.bullethell.game.WorldRenderer;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.assets.AssetManager;
+import com.mygdx.bullethell.game.Assets;
 
 
 /**
@@ -24,6 +26,9 @@ public class BulletHellGame implements ApplicationListener
     {
         // Set LibGDX log level to DEBUG.
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        
+        // Loads assets.
+        Assets.instance.init(new AssetManager());
         
         // Initialize controller and renderer.
         wc = new WorldController();
@@ -56,7 +61,7 @@ public class BulletHellGame implements ApplicationListener
         }
         
         // Sets clear screen color to: some random color I decided would be fine.
-        Gdx.gl.glClearColor(243.0f/255.0f, 34.0f/255.0f, 215.0f/255.0f, 255.0f);
+        Gdx.gl.glClearColor(170.0f/255.0f, 170.0f/255.0f, 170.0f/255.0f, 255.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         // Render it!
@@ -79,6 +84,7 @@ public class BulletHellGame implements ApplicationListener
     public void dispose()
     {
         wr.dispose();
+        Assets.instance.dispose();
     }
 
 }

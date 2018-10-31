@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.bullethell.util.CameraHelper;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Controls the world and the locations of objects within it.
@@ -46,22 +48,25 @@ public class WorldController extends InputAdapter
     private void initTestObjects()
     {
         testSprites = new Sprite[5];
-        int w = 32;  // The width of the "sprites."
-        int h = 32;  // The height of the "sprites."
-        
-        Pixmap px = createProceduralPixmap(w,h);
-        Texture tex = new Texture(px);
+        Array<TextureRegion> reg = new Array<TextureRegion>();
+        reg.add(Assets.instance.sky.sky);
+        reg.add(Assets.instance.frond.frond);
+        reg.add(Assets.instance.fern.fern);
         
         // Create the sprites.
         for (int i = 0; i < testSprites.length; i++)
         {
-            Sprite spr = new Sprite(tex);
-            spr.setSize(1, 1);  // Sprite size is 1m by 1m
+            Sprite spr = new Sprite(reg.random());
+            
+            // this was hellfire to figure out, but:
+            // for 1x sprites: use 0.00775f
+            // for 2x sprites: use 0.0155f
+            spr.setSize(spr.getWidth() * 0.0155f, spr.getHeight() * 0.0155f);
             spr.setOrigin(spr.getWidth() / 2.0f, spr.getHeight() / 2.0f);
             
             // Calculates a random position for the new sprite.
-            float randX = MathUtils.random(-2.0f, 2.0f);
-            float randY = MathUtils.random(-2.0f, 2.0f);
+            float randX = MathUtils.random(-1.0f, 1.0f);
+            float randY = MathUtils.random(-1.0f, 1.0f);
             spr.setPosition(randX, randY);
             
             testSprites[i] = spr;
