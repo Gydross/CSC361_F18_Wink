@@ -4,16 +4,12 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-<<<<<<< HEAD
-=======
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
->>>>>>> Milestone1
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.bullethell.util.CameraHelper;
-import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
@@ -24,10 +20,6 @@ import com.badlogic.gdx.utils.Array;
  */
 public class WorldController extends InputAdapter
 {
-<<<<<<< HEAD
-    @SuppressWarnings("unused")
-=======
->>>>>>> Milestone1
     private static final String TAG = WorldController.class.getName();
     
     public Sprite[] testSprites;
@@ -66,9 +58,10 @@ public class WorldController extends InputAdapter
         {
             Sprite spr = new Sprite(reg.random());
             
-            // Scaling constants may be found in Constants.
-            spr.setSize(spr.getWidth() * Constants.SCALETWO, 
-                    spr.getHeight() * Constants.SCALETWO);
+            // this was hellfire to figure out, but:
+            // for 1x sprites: use 0.00775f
+            // for 2x sprites: use 0.0155f
+            spr.setSize(spr.getWidth() * 0.0155f, spr.getHeight() * 0.0155f);
             spr.setOrigin(spr.getWidth() / 2.0f, spr.getHeight() / 2.0f);
             
             // Calculates a random position for the new sprite.
@@ -82,12 +75,6 @@ public class WorldController extends InputAdapter
         selSprite = 0;  // Sets first sprite as currently selected.
     }
     
-<<<<<<< HEAD
-    public void update (float dt)
-    {
-        handleInput(dt);
-        rotateBullet(dt);
-=======
     /**
      * Creates a procedural pixmap.
      * @param w - The width of the pixmap.
@@ -118,7 +105,6 @@ public class WorldController extends InputAdapter
     {
         handleDebugInput(dt);
         updateTestObjects(dt);
->>>>>>> Milestone1
         ch.update(dt);
     }
     
@@ -126,35 +112,11 @@ public class WorldController extends InputAdapter
      * Processed the debug input.
      * @param dt - Change in time since last update.
      */
-<<<<<<< HEAD
-    private void handleInput(float dt)
-=======
     private void handleDebugInput(float dt)
->>>>>>> Milestone1
     {
         if (Gdx.app.getType() != ApplicationType.Desktop)
             return;
         
-<<<<<<< HEAD
-        // Movement speed
-        float mspeed = 3 * dt;
-        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-        {
-            mspeed = 1.5f * dt;
-        }
-        
-        if (Gdx.input.isKeyPressed(Keys.LEFT))
-            moveSelectedSprite(-mspeed, 0);
-
-        if (Gdx.input.isKeyPressed(Keys.RIGHT))
-            moveSelectedSprite(mspeed, 0);
-        
-        if (Gdx.input.isKeyPressed(Keys.UP))
-            moveSelectedSprite(0, mspeed);
-        
-        if (Gdx.input.isKeyPressed(Keys.DOWN))
-            moveSelectedSprite(0, -mspeed);
-=======
         // Box debug
         float mspeed = 4 * dt;
         
@@ -219,7 +181,6 @@ public class WorldController extends InputAdapter
         x += ch.getPos().x;
         y += ch.getPos().y;
         ch.setPos(x, y);
->>>>>>> Milestone1
     }
     
     /**
@@ -233,18 +194,6 @@ public class WorldController extends InputAdapter
     }
     
     /**
-<<<<<<< HEAD
-     * Updates the rotation of a specific bullet.
-     * @param bullet - The sbullet to be rotated.
-     * @param dt - Change in time since last update
-     */
-    private void rotateBullet(float dt)
-    {
-        //float rot = testSprites[selSprite].getRotation();  // Current sprite rotation
-        //rot += 90 * dt;  // Rotates by 90deg/sec
-        //rot %= 360;      // Wraps rotation @ 360deg
-        //testSprites[selSprite].setRotation(rot);
-=======
      * Updates the rotation of the test sprites.
      * @param dt - Change in time since last update
      */
@@ -276,6 +225,5 @@ public class WorldController extends InputAdapter
         }
             
         return false;
->>>>>>> Milestone1
     }
 }
