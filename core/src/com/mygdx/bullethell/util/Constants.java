@@ -15,6 +15,6 @@ public class Constants
     public static final String TEXTURE_ATLAS_OBJECTS = "images/bhgame.atlas";
     
     // Pixels-to-Meters conversion factors
-    public static final float SCALEONE = 0.00775f;
-    public static final float SCALETWO = 0.0155f;
+    public static final float SCALEONE = 0.00775f;  // 1x
+    public static final float SCALETWO = 0.0155f;   // 2x
 }

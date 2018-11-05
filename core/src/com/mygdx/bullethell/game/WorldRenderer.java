@@ -3,6 +3,7 @@ package com.mygdx.bullethell.game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.bullethell.game.objects.Boundary;
 import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -41,6 +42,7 @@ public class WorldRenderer implements Disposable
     public void render()
     {
         renderTestObjects();
+        Boundary bounds = new Boundary();
     }
     
     /**

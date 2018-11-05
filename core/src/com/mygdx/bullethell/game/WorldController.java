@@ -103,8 +103,8 @@ public class WorldController extends InputAdapter
     
     public void update (float dt)
     {
-        handleDebugInput(dt);
-        updateTestObjects(dt);
+        handleUserInput(dt);
+        //updateRotation(dt);
         ch.update(dt);
     }
     
@@ -112,63 +112,29 @@ public class WorldController extends InputAdapter
      * Processed the debug input.
      * @param dt - Change in time since last update.
      */
-    private void handleDebugInput(float dt)
+    private void handleUserInput(float dt)
     {
         if (Gdx.app.getType() != ApplicationType.Desktop)
             return;
         
-        // Box debug
-        float mspeed = 4 * dt;
-        
-        if (Gdx.input.isKeyPressed(Keys.A))
-            moveSelectedSprite(-mspeed, 0);
-
-        if (Gdx.input.isKeyPressed(Keys.D))
-            moveSelectedSprite(mspeed, 0);
-        
-        if (Gdx.input.isKeyPressed(Keys.W))
-            moveSelectedSprite(0, mspeed);
-        
-        if (Gdx.input.isKeyPressed(Keys.S))
-            moveSelectedSprite(0, -mspeed);
-        
-        // Camera debug
-        float camSpeed = mspeed;
-        float camAccel = 2;
-        
+        float mspeed = 2 * dt;
         if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-            camSpeed *= camAccel;
+            mspeed = 1 * dt;
         
         if (Gdx.input.isKeyPressed(Keys.LEFT))
-            moveCamera(-camSpeed, 0);
-        
+            moveSelectedSprite(-mspeed, 0);
+
         if (Gdx.input.isKeyPressed(Keys.RIGHT))
-            moveCamera(camSpeed, 0);
+            moveSelectedSprite(mspeed, 0);
         
         if (Gdx.input.isKeyPressed(Keys.UP))
-            moveCamera(0, camSpeed);
+            moveSelectedSprite(0, mspeed);
         
         if (Gdx.input.isKeyPressed(Keys.DOWN))
-            moveCamera(0, -camSpeed);
+            moveSelectedSprite(0, -mspeed);
         
-        if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
-            ch.setPos(0, 0);
-        
-        // Zoom test
-        float zoomSpeed = 1 * dt;
-        float zoomAccel = 2;
-        
-        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-            zoomSpeed *= zoomAccel;
-        
-        if (Gdx.input.isKeyPressed(Keys.COMMA))
-            ch.addZoom(zoomSpeed);
-        
-        if (Gdx.input.isKeyPressed(Keys.PERIOD))
-            ch.addZoom(-zoomSpeed);
-        
-        if (Gdx.input.isKeyPressed(Keys.SLASH))
-            ch.setZoom(1);
+        //if (Gdx.input.isKeyPressed(Keys.Z))
+        //  Sky.shoot();
     }
     
     /**
@@ -176,12 +142,13 @@ public class WorldController extends InputAdapter
      * @param x - The desired x coord.
      * @param y - The desired y coord.
      */
+    /*
     private void moveCamera(float x, float y)
     {
         x += ch.getPos().x;
         y += ch.getPos().y;
         ch.setPos(x, y);
-    }
+    }*/
     
     /**
      * Moves the currently selected sprite to a new position.
@@ -197,7 +164,7 @@ public class WorldController extends InputAdapter
      * Updates the rotation of the test sprites.
      * @param dt - Change in time since last update
      */
-    private void updateTestObjects(float dt)
+    private void updateRotation(float dt)
     {
         float rot = testSprites[selSprite].getRotation();  // Current sprite rotation
         rot += 90 * dt;  // Rotates by 90deg/sec
