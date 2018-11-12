@@ -17,6 +17,7 @@ public class WorldRenderer implements Disposable
     private OrthographicCamera cam;
     private SpriteBatch bat;
     private WorldController wc;
+    public Boundary bounds;
     
     /**
      * Create
@@ -41,20 +42,15 @@ public class WorldRenderer implements Disposable
      */
     public void render()
     {
-        renderTestObjects();
-        Boundary bounds = new Boundary();
+        renderWorld(bat);
     }
     
-    /**
-     * Renders the ugly test squares.
-     */
-    private void renderTestObjects()
+    private void renderWorld(SpriteBatch bat)
     {
+        wc.ch.applyTo(cam);
         bat.setProjectionMatrix(cam.combined);
         bat.begin();
-        for (Sprite sprite : wc.testSprites)
-            sprite.draw(bat);
-        
+        wc.stage.render(bat);
         bat.end();
     }
     
