@@ -2,6 +2,7 @@ package com.mygdx.bullethell.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Holds attributes and method signatures common to all objects.
@@ -15,6 +16,12 @@ public abstract class AbstractGameObject
     public Vector2 origin;
     public Vector2 scale;
     public float rot;  // The rotation of the object.
+    public Vector2 velocity;
+    public Vector2 terminalVelocity;
+    public Vector2 friction;
+    
+    public Vector2 acceleration;
+    public Rectangle bounds;
     
     public AbstractGameObject()
     {
