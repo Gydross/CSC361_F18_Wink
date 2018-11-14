@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.bullethell.game.objects.AbstractGameObject;
 
 /**
  * Manipulates the camera used in world rendering.
@@ -20,6 +21,7 @@ public class CameraHelper
     private Vector2 pos;
     private float zoom;
     private Sprite tg;
+    private AbstractGameObject target;
     
     /**
      * Create
@@ -39,8 +41,8 @@ public class CameraHelper
         if (!hasTarget())
             return;
         
-        pos.x = tg.getX() + tg.getOriginX();
-        pos.y = tg.getY() + tg.getOriginY();
+        pos.x = target.pos.x + target.origin.x;
+        pos.y = target.pos.y + target.origin.y;
     }
     
     /**
@@ -93,18 +95,18 @@ public class CameraHelper
      * Sets the target to a specific sprite.
      * @param tg - The desired new target.
      */
-    public void setTarget(Sprite tg)
+    public void setTarget(AbstractGameObject target)
     {
-        this.tg = tg;
+        this.target = target;
     }
-    
+
     /**
      * Retrieves the current target.
      * @return tg - The current target.
      */
-    public Sprite getTarget()
+    public AbstractGameObject getTarget()
     {
-        return tg;
+        return target;
     }
     
     /**
@@ -113,7 +115,7 @@ public class CameraHelper
      */
     public boolean hasTarget()
     {
-        return tg != null;
+        return target != null;
     }
     
     /**
@@ -121,9 +123,9 @@ public class CameraHelper
      * @param tg - The target for comparison.
      * @return true if both criteria are true; false otherwise.
      */
-    public boolean hasTarget(Sprite tg)
+    public boolean hasTarget(AbstractGameObject target)
     {
-        return hasTarget() && this.tg.equals(tg);
+        return hasTarget()  && this.target.equals(target);
     }
     
     /**

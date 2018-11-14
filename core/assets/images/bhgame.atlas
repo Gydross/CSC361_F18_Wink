@@ -4,6 +4,13 @@ size: 128,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+bounds_collision_testmarker
+  rotate: false
+  xy: 96, 46
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 bullet_grey
   rotate: false
   xy: 70, 20
