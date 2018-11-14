@@ -27,5 +27,7 @@ public abstract class AbstractGameObject
     
     public void update(float dt) {}
     
-    public abstract void render(SpriteBatch b);
+    public abstract void render(SpriteBatch bat);
+
+    //public abstract void render(SpriteBatch bat, float x, float y);
 }

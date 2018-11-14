@@ -1,7 +1,6 @@
 package com.mygdx.bullethell.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -26,24 +25,36 @@ public class Boundary extends AbstractGameObject
      */
     private class Bound extends AbstractGameObject
     {
-        private TextureRegion regBound;
+        float scaleX = 1;
+        float scaleY = 1;
         
-        public Bound() {}
-        
-        public void setRegion(TextureRegion region)
+        /**
+         * Create
+         * @param scaleX - The horizontal scaling (for rendering)
+         * @param scaleY - The vertical scaling (for rendering)
+         */
+        public Bound(float scaleX, float scaleY) 
         {
-            regBound = region;
+            this.scaleX = scaleX;
+            this.scaleY = scaleY;
         }
         
+        /**
+         * A customized render method to support the unique needs of this object.
+         * @param bat - The SpriteBatch for rendering.
+         * @param x - The x coordinate the texture will be rendered at.
+         * @param y - The y coordinate the texture will be rendered at.
+         * @param coordX - The horizontal scaling of the texture.
+         * @param coordY - The vertical scaling of the texture.
+         */
+        public void render(SpriteBatch bat, float x, float y, float scaleX, float scaleY)
+        {
+            bat.draw(Assets.instance.boundary.bound, x, y, scaleX, scaleY);
+        }
+
+        // Does nothing; implemented for compatibility
         @Override
-        public void render(SpriteBatch bat)
-        {
-            TextureRegion reg = regBound;
-            bat.draw(reg.getTexture(), pos.x + origin.x, pos.y + origin.y, origin.x, 
-                    origin.y, dim.x, dim.y, scale.x, scale.y, rot, reg.getRegionX(),
-                    reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(),
-                    false, false);
-        }
+        public void render(SpriteBatch bat) {}
         
     }
     
@@ -66,47 +77,11 @@ public class Boundary extends AbstractGameObject
     private void init()
     {
         bounds = new Array<Bound>(numBounds);
-        int w;  // The width of the boundary
-        int h;  // The height of the boundary
         
-        createBox(16, Constants.PLAY_HEIGHT, 0, Constants.PLAY_HEIGHT);
+        createBox(16, Constants.PLAY_HEIGHT, 0, 16);
         createBox(Constants.PLAY_WIDTH, 8, 16, 8);
         createBox(Constants.PLAY_WIDTH, 8, 16, 960);
         createBox(16, Constants.PLAY_HEIGHT, 789, Constants.PLAY_HEIGHT);
-        /*
-        for (box = 0; box < numBounds; box++)
-        {
-            switch (box)
-            {
-                case 0: 
-                    // This is the left boundary.
-                    w = 16;
-                    h = Constants.PLAY_HEIGHT;
-                    createBox(w, h, 0, h);
-                    break;
-
-                case 1:
-                 // This is the upper boundary.
-                    w = Constants.PLAY_WIDTH;
-                    h = 8;
-                    createBox(w, h, 16, 8);
-                    break;
-
-                case 2:
-                 // This is the lower boundary.
-                    w = Constants.PLAY_WIDTH;
-                    h = 8;
-                    createBox(w, h, 16, h);
-                    break;
-
-                case 3:
-                 // This is the right boundary.
-                    w = 16;
-                    h = Constants.PLAY_HEIGHT;
-                    createBox(w, h, 789, h);
-                    break;
-            }
-        }*/
     }
     
     
@@ -119,24 +94,14 @@ public class Boundary extends AbstractGameObject
      */
     private void createBox(float w, float h, int posx, int posy)
     {
-        Bound box = new Bound();
-        
-        // Sets the scaling for the boundary; SCALETWO is the 2x2px resolution 
-        // conversion from meters to pixels, as specified in Constants.
-        box.dim.set(w * Constants.SCALETWO, h * Constants.SCALETWO);
-        box.setRegion(Assets.instance.boundary.bound);
+        float scaleOpt = Constants.SCALEONE;
+        Bound box = new Bound(w * scaleOpt, h * scaleOpt);
         
         // Ensures origin is set at (0, 0)
         Vector2 orig = new Vector2();
         orig.x = 0;
         orig.y = 0;
         
-        // Sets the new position
-        Vector2 position = new Vector2();
-        position.x = posx * Constants.SCALETWO;
-        position.y = posy * Constants.SCALETWO;
-        
-        box.pos.set(position);
         box.origin.set(orig);
         
         bounds.add(box);
@@ -146,7 +111,9 @@ public class Boundary extends AbstractGameObject
     public void render(SpriteBatch bat)
     {
         for (Bound bound : bounds)
-            bound.render(bat);
+            bound.render(bat, bound.pos.x, bound.pos.y, bound.scaleX, bound.scaleY);
+        
+        
     }
 
 }
