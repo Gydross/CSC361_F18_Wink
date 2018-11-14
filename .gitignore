@@ -131,3 +131,5 @@ core/src/com/mygdx/bullethell/game/WorldController\.java
 core/src/com/mygdx/bullethell/game/Assets\.java
 
 core/src/com/mygdx/bullethell/BulletHellGame\.java
+
+core/assets/images/bhgame\.atlas
