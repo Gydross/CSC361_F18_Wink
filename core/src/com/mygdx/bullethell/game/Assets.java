@@ -30,6 +30,8 @@ public class Assets implements Disposable, AssetErrorListener
     public AssetFrond frond;
     public AssetFern fern;
     public AssetBulletGrey bullets_grey;
+    public AssetBounds boundary;
+    //public AssetLevelDecoration levelDecoration;
     
     // Singleton
     private Assets() {}
@@ -60,6 +62,8 @@ public class Assets implements Disposable, AssetErrorListener
         frond = new AssetFrond(a);
         fern = new AssetFern(a);
         bullets_grey = new AssetBulletGrey(a);
+        boundary = new AssetBounds(a);
+        //levelDecoration = new AssetLevelDecoration(a);
     }
     
     /**
@@ -137,5 +141,14 @@ public class Assets implements Disposable, AssetErrorListener
         }
     }
     
-    
+    /**
+     * Compact texture atlas asset loader for a test boundary image.
+     * @author Aaron Wink
+     */
+    public class AssetBounds {
+        public final AtlasRegion bound;
+        public AssetBounds(TextureAtlas a) {
+            bound = a.findRegion("bounds_collision_testmarker");
+        }
+    }
 }
