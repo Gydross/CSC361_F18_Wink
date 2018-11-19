@@ -19,13 +19,15 @@ public class WorldController extends InputAdapter
     private static final String TAG = WorldController.class.getName();
     
     public CameraHelper ch;
-    public Stage stage;
-    public int lives;
-    public int bombs;
-    public int score;
-    public int highscore;
-    
-    /**
+	public Stage stage;
+	public static int lives;
+	public static int bombs;
+	public static int power;
+	public static int score;
+	public static int highscore;
+
+
+	/**
      * Create
      */
     public WorldController()
@@ -45,6 +47,7 @@ public class WorldController extends InputAdapter
     private void initStage()
     {
         score = 0;
+        power = 0;
         stage = new Stage(Constants.STAGE_01);
     }
     
@@ -99,4 +102,6 @@ public class WorldController extends InputAdapter
             
         return false;
     }
+    
+    
 }

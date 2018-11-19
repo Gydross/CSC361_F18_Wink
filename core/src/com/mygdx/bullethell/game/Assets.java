@@ -31,6 +31,8 @@ public class Assets implements Disposable, AssetErrorListener
     public AssetFern fern;
     public AssetBulletGrey bullets_grey;
     public AssetBounds boundary;
+    public AssetPickup pickups;
+    
     //public AssetLevelDecoration levelDecoration;
     
     // Singleton
@@ -63,6 +65,7 @@ public class Assets implements Disposable, AssetErrorListener
         fern = new AssetFern(a);
         bullets_grey = new AssetBulletGrey(a);
         boundary = new AssetBounds(a);
+        pickups = new AssetPickup(a);
         //levelDecoration = new AssetLevelDecoration(a);
     }
     
@@ -149,6 +152,22 @@ public class Assets implements Disposable, AssetErrorListener
         public final AtlasRegion bound;
         public AssetBounds(TextureAtlas a) {
             bound = a.findRegion("bounds_collision_testmarker");
+        }
+    }
+    
+    /**
+     * Compact texture atlas asset loader for all grey bullets.
+     * @author Aaron Wink
+     */
+    public class AssetPickup {
+        public final AtlasRegion[] pickup = new AtlasRegion[1];
+        public AssetPickup(TextureAtlas a) {
+            // Looks for all bullet_grey_# files and loads them into the array.
+            for (int i = 1; i < 7; i++)
+            {
+                String name = "item_" + i;
+                pickup[i-1] = a.findRegion(name);
+            }
         }
     }
 }
