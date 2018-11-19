@@ -52,6 +52,7 @@ public class WorldController extends InputAdapter
     {
         handleUserInput(dt);
         ch.update(dt);
+        stage.update(dt);
     }
     
     /**

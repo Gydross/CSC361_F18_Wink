@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.bullethell.game.objects.AbstractGameObject;
 import com.mygdx.bullethell.game.objects.Boundary;
+import com.mygdx.bullethell.game.objects.Sky;
 
 /**
  * The class that loads levels and handles populating them with objects 
@@ -43,6 +44,7 @@ public class Stage
     
     // Objects
     public Boundary bounds;
+    public Sky sky;
     
     // Decoration
     
@@ -55,6 +57,7 @@ public class Stage
     {
         // Objects
         bounds = new Boundary();
+        sky = null;
         
         // Load level file
         Pixmap px = new Pixmap(Gdx.files.internal(filename));
@@ -78,7 +81,9 @@ public class Stage
                 {} 
                 else if (BLOCK_TYPE.PLAYER.sameColor(curpx))  // Player
                 {
-                    
+                    obj = new Sky();
+                    obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                    sky = (Sky)obj;
                 }
                 else if (BLOCK_TYPE.BOSS.sameColor(curpx))  // Boss
                 {
@@ -99,8 +104,15 @@ public class Stage
         Gdx.app.debug(TAG, "Stage loaded.");
     }
     
+    public void update(float dt)
+    {
+    	bounds.update(dt);
+    	sky.update(dt);
+    }
+    
     public void render(SpriteBatch bat)
     {
         bounds.render(bat);
+        sky.render(bat);
     }
 }
