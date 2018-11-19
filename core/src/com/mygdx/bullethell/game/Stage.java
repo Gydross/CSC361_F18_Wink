@@ -179,7 +179,7 @@ public class Stage
     {
         bounds.render(bat);
         sky.render(bat);
-        ps.render(bat);
-        pl.render(bat);
+        //ps.render(bat);
+        //pl.render(bat);
     }
 }

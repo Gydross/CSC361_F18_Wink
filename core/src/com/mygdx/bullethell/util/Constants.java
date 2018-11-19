@@ -12,12 +12,12 @@ public class Constants
     public static final float VIEWPORT_HEIGHT = 5.0f;
     
     // GUI dimensions.
-    public static final float VIEWPORT_GUI_WIDTH = 1280.0f;
-    public static final float VIEWPORT_GUI_HEIGHT = 960.0f;
+    public static final float VIEWPORT_GUI_WIDTH = 639.0f;
+    public static final float VIEWPORT_GUI_HEIGHT = 397.0f;
     
     // Play area dimensions.
-    public static final int PLAY_WIDTH = 773;
-    public static final int PLAY_HEIGHT = 944;
+    public static final int PLAY_WIDTH = 384;
+    public static final int PLAY_HEIGHT = 368;
     
     // Location of texture atlas
     public static final String TEXTURE_ATLAS_OBJECTS = "images/bhgame.atlas";

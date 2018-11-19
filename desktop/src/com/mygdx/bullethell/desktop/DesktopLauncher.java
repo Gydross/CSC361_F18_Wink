@@ -24,8 +24,8 @@ public class DesktopLauncher
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		
 		config.title = "Bullet Hell Game";
-		config.width = 640;
-		config.height = 540;
+		config.width = 639;
+		config.height = 397;
 		
 		new LwjglApplication(new BulletHellGame(), config);
 	}
