@@ -21,9 +21,9 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "Bullet_Hell_Game"
+        appName = "CSC361_F18_Wink"
         gdxVersion = '1.9.8'
-        roboVMVersion = '2.3.3'
+        roboVMVersion = '2.3.5'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
@@ -60,8 +60,8 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         
     }
 }

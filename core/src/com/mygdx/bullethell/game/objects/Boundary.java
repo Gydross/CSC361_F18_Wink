@@ -44,8 +44,8 @@ public class Boundary extends AbstractGameObject
          * @param bat - The SpriteBatch for rendering.
          * @param x - The x coordinate the texture will be rendered at.
          * @param y - The y coordinate the texture will be rendered at.
-         * @param coordX - The horizontal scaling of the texture.
-         * @param coordY - The vertical scaling of the texture.
+         * @param scaleX - The horizontal scaling of the texture.
+         * @param scaleY - The vertical scaling of the texture.
          */
         public void render(SpriteBatch bat, float x, float y, float scaleX, float scaleY)
         {
@@ -70,7 +70,7 @@ public class Boundary extends AbstractGameObject
     /**
      * Creates all of the boxes.
      * Based on the assumption that the drawing origin is the lower left of the screen.
-     * The play space is 773 x 944, so let's work off of that.
+     * The play space is 773px x 944px, so let's work off of that.
      * 
      * Average level length is 3232px.
      */
@@ -94,8 +94,8 @@ public class Boundary extends AbstractGameObject
      */
     private void createBox(float w, float h, int posx, int posy)
     {
-        float scaleOpt = Constants.SCALEONE;
-        Bound box = new Bound(w * scaleOpt, h * scaleOpt);
+        float scaleOpt = Constants.SCALETWO;
+        Bound box = new Bound((w / 3) * scaleOpt, (h / 3) * scaleOpt);
         
         // Ensures origin is set at (0, 0)
         Vector2 orig = new Vector2();
