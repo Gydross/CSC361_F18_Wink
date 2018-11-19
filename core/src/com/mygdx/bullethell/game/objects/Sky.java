@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.bullethell.game.Assets;
+import com.mygdx.bullethell.util.Constants;
 
 /**
  * The player character, Sky.
@@ -53,6 +54,31 @@ public class Sky extends AbstractGameObject
 		power = 0;
 	}
 	
+	/**
+	 * Changes moving states depending on whether Sky is moving or not.
+	 * @param leftPressed - Is the left key pressed?
+	 * @param rightPressed - Is the right key pressed?
+	 */
+	public void setMoving(boolean leftPressed, boolean rightPressed)
+	{
+		switch (movedir)
+		{
+			case LEFT:
+				if (leftPressed && !rightPressed)
+					movedir = MOVE_DIR.LEFT;
+				break;
+				
+			case RIGHT:
+				if (!leftPressed && rightPressed)
+					movedir = MOVE_DIR.RIGHT;
+				break;
+				
+			default:
+				movedir = MOVE_DIR.CENTER;
+				break;
+		}
+	}
+	
 	public void setFocused(boolean focused)
 	{
 		isFocus = focused;
@@ -63,9 +89,17 @@ public class Sky extends AbstractGameObject
 		return isFocus;
 	}
 	
+	/**
+	 * If the player is to become invincible, set the appropriate boolean
+	 *   and set timeInvincible.
+	 * @param invincible - Is the player character supposed to be invincible
+	 *   now or not?
+	 */
 	public void setInvincible(boolean invincible)
 	{
 		isInvincible = invincible;
+		if (invincible)
+			timeInvincible = Constants.INVINCIBILITY_DURATION;
 	}
 	
 	public boolean getInvincible()
