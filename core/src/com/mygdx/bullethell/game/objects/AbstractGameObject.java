@@ -2,6 +2,7 @@ package com.mygdx.bullethell.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
@@ -23,6 +24,7 @@ public abstract class AbstractGameObject
     
     public Vector2 accel;
     public Rectangle bounds;
+    public Body body;
     
     public AbstractGameObject()
     {
@@ -85,11 +87,18 @@ public abstract class AbstractGameObject
     
     public void update(float dt)
     {
-    	updateMotionX(dt);
-    	updateMotionY(dt);
+    	if (body == null)
+    	{
+    		updateMotionX(dt);
+        	updateMotionY(dt);
+        	
+        	pos.x += vel.x * dt;
+        	pos.y += vel.y * dt;
+    	} else {
+    		pos.set(body.getPosition());
+    		rot = body.getAngle() * MathUtils.radiansToDegrees;
+    	}
     	
-    	pos.x += vel.x * dt;
-    	pos.y += vel.y * dt;
     }
     
     public abstract void render(SpriteBatch bat);

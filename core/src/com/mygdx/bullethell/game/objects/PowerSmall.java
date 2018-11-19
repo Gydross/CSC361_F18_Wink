@@ -11,6 +11,27 @@ import com.mygdx.bullethell.game.WorldController;
  */
 public class PowerSmall extends ItemParent
 {
+	/**
+	 * Create
+	 */
+	public PowerSmall()
+	{
+		init();
+		
+	}
+	
+	private void init()
+	{
+		myReg = getTexReg();
+		dim.set(8 * s, 8 * s);
+		origin.set(dim.x / 2, dim.y / 2);
+		bounds.set(0, 0, dim.x, dim.y);
+		termVel.y = 0.075f;
+		
+		collected = false;
+		outOfBounds = false;
+	}
+	
 	@Override
 	protected TextureRegion getTexReg() {
 		return Assets.instance.pickups.pickup[2];

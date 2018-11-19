@@ -156,13 +156,13 @@ public class Assets implements Disposable, AssetErrorListener
     }
     
     /**
-     * Compact texture atlas asset loader for all grey bullets.
+     * Compact texture atlas asset loader for all items.
      * @author Aaron Wink
      */
     public class AssetPickup {
-        public final AtlasRegion[] pickup = new AtlasRegion[1];
+        public final AtlasRegion[] pickup = new AtlasRegion[6];
         public AssetPickup(TextureAtlas a) {
-            // Looks for all bullet_grey_# files and loads them into the array.
+            // Looks for all item # files and loads them.
             for (int i = 1; i < 7; i++)
             {
                 String name = "item_" + i;

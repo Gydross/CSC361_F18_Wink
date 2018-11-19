@@ -13,27 +13,10 @@ import com.mygdx.bullethell.util.Constants;
  */
 public abstract class ItemParent extends AbstractGameObject
 {
-	protected TextureRegion myReg;
-	private final float boundScale = 0.5f * Constants.SCALEONE;
+	protected TextureRegion myReg = null;
+	protected final float s = Constants.SCALEONE;
 	public boolean collected;
-	
-	/**
-	 * Create
-	 */
-	public ItemParent()
-	{
-		init();
-	}
-	
-	private void init()
-	{
-		dim.set(boundScale, boundScale);
-		myReg = getTexReg();
-		bounds.set(0, 0, dim.x, dim.y);
-		termVel.y = 0.075f;
-		
-		collected = false;		
-	}
+	public boolean outOfBounds;
 
 	public void render(SpriteBatch bat)
 	{
@@ -48,6 +31,6 @@ public abstract class ItemParent extends AbstractGameObject
 	    	false, false);
 	}
 	
-	protected abstract TextureRegion getTexReg();
-	protected abstract void specialFunction();
+	protected abstract TextureRegion getTexReg();	// Retrieves the texture for the item.
+	protected abstract void specialFunction();		// What the specific item does, i.e. giving an extra life.
 }

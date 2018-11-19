@@ -40,11 +40,13 @@ public class Sky extends AbstractGameObject
 	
 	public void init()
 	{
-		dim.set(1, 1);
+		float s = Constants.SCALEONE;
+		dim.set(24 * s, 32 * s);
 		this.sky = Assets.instance.sky.sky;
 		
 		origin.set(dim.x / 2, dim.y / 2);
-		bounds.set(0, 0, dim.x, dim.y);
+		
+		bounds.set(9 * s, 13 * s, 15 * s, 19 * s);
 		
 		isFocus = false;
 		isMoving = false;

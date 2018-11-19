@@ -1,47 +1,89 @@
 
 bhgame.png
-size: 128,64
+size: 64,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 bounds_collision_testmarker
   rotate: false
-  xy: 96, 46
+  xy: 22, 6
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 bullet_grey
   rotate: false
-  xy: 70, 20
+  xy: 54, 8
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: 1
 fern
   rotate: false
-  xy: 2, 14
+  xy: 2, 74
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 frond
   rotate: false
-  xy: 36, 14
+  xy: 2, 24
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
+item
+  rotate: false
+  xy: 2, 4
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+item
+  rotate: false
+  xy: 36, 70
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+item
+  rotate: false
+  xy: 36, 50
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 4
+item
+  rotate: false
+  xy: 36, 30
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 6
+item
+  rotate: false
+  xy: 40, 16
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: 3
+item
+  rotate: false
+  xy: 40, 2
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: 5
 sky
   rotate: false
-  xy: 70, 30
+  xy: 36, 90
   size: 24, 32
   orig: 24, 32
   offset: 0, 0
   index: -1
 sky_bullet
   rotate: false
-  xy: 2, 2
+  xy: 54, 18
   size: 8, 10
   orig: 8, 10
   offset: 0, 0
