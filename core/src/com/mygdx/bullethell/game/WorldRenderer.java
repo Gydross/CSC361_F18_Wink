@@ -51,7 +51,7 @@ public class WorldRenderer implements Disposable
     
     private void renderWorld(SpriteBatch bat)
     {
-        wc.ch.applyTo(cam);
+        //wc.ch.applyTo(cam);
         bat.setProjectionMatrix(cam.combined);
         bat.begin();
         wc.stage.render(bat);
