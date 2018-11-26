@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.bullethell.game.objects.AbstractGameObject;
+import com.mygdx.bullethell.game.objects.BackgroundNormal;
 import com.mygdx.bullethell.game.objects.Bomb;
 import com.mygdx.bullethell.game.objects.Boundary;
 import com.mygdx.bullethell.game.objects.ExtraLife;
@@ -13,6 +14,7 @@ import com.mygdx.bullethell.game.objects.PowerSmall;
 import com.mygdx.bullethell.game.objects.ScoreLarge;
 import com.mygdx.bullethell.game.objects.ScoreSmall;
 import com.mygdx.bullethell.game.objects.Sky;
+import com.mygdx.bullethell.util.Constants;
 
 /**
  * The class that loads levels and handles populating them with objects 
@@ -67,6 +69,7 @@ public class Stage
     public ExtraLife up;
     
     // Decoration
+    public BackgroundNormal bg;
     
     public Stage(String filename)
     {
@@ -108,8 +111,8 @@ public class Stage
                 else if (BLOCK_TYPE.PLAYER.sameColor(curpx))  // Player
                 {
                     obj = new Sky();
-                    offsetHeight = -3.0f;
-                    obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                    offsetHeight = 0;
+                    obj.pos.set(pxX, (baseHeight * obj.dim.y + offsetHeight ) * Constants.SCALEONE);
                     sky = (Sky)obj;
                 }
                 else if (BLOCK_TYPE.BOSS.sameColor(curpx))  // Boss
@@ -161,6 +164,8 @@ public class Stage
         }
         
         // Decoration
+        bg = new BackgroundNormal();
+        bg.pos.set(0,0);
         
         // Free up some memory
         px.dispose();
@@ -170,6 +175,7 @@ public class Stage
     public void update(float dt)
     {
     	bounds.update(dt);
+    	bg.update(dt);
     	sky.update(dt);
     	ps.update(dt);
     	pl.update(dt);
@@ -178,6 +184,7 @@ public class Stage
     public void render(SpriteBatch bat)
     {
         bounds.render(bat);
+        bg.render(bat);
         sky.render(bat);
         //ps.render(bat);
         //pl.render(bat);

@@ -25,6 +25,7 @@ public class Constants
     
     // Location of stage file 1
     public static final String STAGE_01 = "stages/stage_01.png";
+    public static final String STAGE_01_BG = "stages/stage_01_bg.png";
     
     // Pixels-to-Meters conversion factors
     public static final float SCALEONE = 0.00775f;  // 1x
