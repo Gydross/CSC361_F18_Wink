@@ -13,8 +13,7 @@ import com.mygdx.bullethell.util.Constants;
  */
 public abstract class ItemParent extends AbstractGameObject
 {
-	protected TextureRegion myReg = null;
-	protected final float s = Constants.SCALEONE;
+	protected TextureRegion myReg;
 	public boolean collected;
 	public boolean outOfBounds;
 

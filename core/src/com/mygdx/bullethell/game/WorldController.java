@@ -49,6 +49,8 @@ public class WorldController extends InputAdapter
         score = 0;
         power = 0;
         stage = new Stage(Constants.STAGE_01);
+        if (ch.hasTarget(stage.sky))
+        	ch.setTarget(stage.sky);
     }
     
     public void update (float dt)

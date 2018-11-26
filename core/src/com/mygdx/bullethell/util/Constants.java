@@ -11,9 +11,10 @@ public class Constants
     public static final float VIEWPORT_WIDTH = 5.0f;
     public static final float VIEWPORT_HEIGHT = 5.0f;
     
-    // GUI dimensions.
-    public static final float VIEWPORT_GUI_WIDTH = 639.0f;
-    public static final float VIEWPORT_GUI_HEIGHT = 397.0f;
+    // GUI things.
+    public static final float VIEWPORT_GUI_WIDTH = 1280.0f;
+    public static final float VIEWPORT_GUI_HEIGHT = 960.0f;
+// the font will go here when im ready for it
     
     // Play area dimensions.
     public static final int PLAY_WIDTH = 384;

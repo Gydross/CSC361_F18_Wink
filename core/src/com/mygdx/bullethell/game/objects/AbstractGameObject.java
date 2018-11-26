@@ -3,6 +3,7 @@ package com.mygdx.bullethell.game.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
@@ -25,6 +26,8 @@ public abstract class AbstractGameObject
     public Vector2 accel;
     public Rectangle bounds;
     public Body body;
+    
+	protected final float boundScale = 0.5f * Constants.SCALEONE;
     
     public AbstractGameObject()
     {
