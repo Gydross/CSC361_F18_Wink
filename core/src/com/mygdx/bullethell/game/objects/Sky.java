@@ -40,13 +40,12 @@ public class Sky extends AbstractGameObject
 	
 	public void init()
 	{
-		float s = Constants.SCALEONE;
-		dim.set(24 * s, 32 * s);
+		dim.set(24 * boundScale, 32 * boundScale);
 		this.sky = Assets.instance.sky.sky;
 		
 		origin.set(dim.x / 2, dim.y / 2);
 		
-		bounds.set(9 * s, 13 * s, 15 * s, 19 * s);
+		bounds.set(9 * boundScale, 13 * boundScale, 15 * boundScale, 19 * boundScale);
 		
 		isFocus = false;
 		isMoving = false;
@@ -133,7 +132,7 @@ public class Sky extends AbstractGameObject
 		
 		if (isInvincible)
 			bat.setColor(0.8f, 0.0f, 0.8f, 0.75f);
-		
+		scale.set(2+(sc),3+(sc*9));
 		reg = sky;
 		bat.draw(reg.getTexture(), pos.x, pos.y, origin.x, origin.y, 
 				dim.x, dim.y, scale.x, scale.y, rot, reg.getRegionX(),

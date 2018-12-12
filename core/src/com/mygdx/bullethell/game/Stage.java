@@ -3,8 +3,11 @@ package com.mygdx.bullethell.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.bullethell.game.objects.AbstractGameObject;
+import com.mygdx.bullethell.game.objects.BackgroundNormal;
 import com.mygdx.bullethell.game.objects.Bomb;
 import com.mygdx.bullethell.game.objects.Boundary;
 import com.mygdx.bullethell.game.objects.ExtraLife;
@@ -13,6 +16,7 @@ import com.mygdx.bullethell.game.objects.PowerSmall;
 import com.mygdx.bullethell.game.objects.ScoreLarge;
 import com.mygdx.bullethell.game.objects.ScoreSmall;
 import com.mygdx.bullethell.game.objects.Sky;
+import com.mygdx.bullethell.util.Constants;
 
 /**
  * The class that loads levels and handles populating them with objects 
@@ -67,6 +71,7 @@ public class Stage
     public ExtraLife up;
     
     // Decoration
+    public BackgroundNormal bg;
     
     public Stage(String filename)
     {
@@ -96,6 +101,8 @@ public class Stage
             {
                 AbstractGameObject obj = null;
                 float offsetHeight = 0;
+                float vecx = ((pxX * Constants.SCALEONE) * 8) + 0.248f;
+                float vecy = (pxY * Constants.SCALEONE) + 0.124f;
                 
                 // Height grows, bottom to top
                 float baseHeight = px.getHeight() - pxY;
@@ -108,8 +115,7 @@ public class Stage
                 else if (BLOCK_TYPE.PLAYER.sameColor(curpx))  // Player
                 {
                     obj = new Sky();
-                    offsetHeight = -3.0f;
-                    obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                    obj.pos.set(vecx, vecy);
                     sky = (Sky)obj;
                 }
                 else if (BLOCK_TYPE.BOSS.sameColor(curpx))  // Boss
@@ -119,37 +125,37 @@ public class Stage
                 else if (BLOCK_TYPE.POWERSMALL.sameColor(curpx))
                 {
                 	obj = new PowerSmall();
-                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	obj.pos.set(vecx, vecy);
                 	ps = (PowerSmall)obj;
                 }
                 else if (BLOCK_TYPE.POWERLARGE.sameColor(curpx))
                 {
                 	obj = new PowerLarge();
-                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	obj.pos.set(vecx, vecy);
                 	pl = (PowerLarge)obj;
                 }
                 else if (BLOCK_TYPE.SCORESMALL.sameColor(curpx))
                 {
                 	obj = new ScoreSmall();
-                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	obj.pos.set(vecx, vecy);
                 	ss = (ScoreSmall)obj;
                 }
                 else if (BLOCK_TYPE.SCORELARGE.sameColor(curpx))
                 {
                 	obj = new ScoreLarge();
-                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	obj.pos.set(vecx, vecy);
                 	sl = (ScoreLarge)obj;
                 }
                 else if (BLOCK_TYPE.BOMB.sameColor(curpx))
                 {
                 	obj = new Bomb();
-                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	obj.pos.set(vecx, vecy);
                 	bomb = (Bomb)obj;
                 }
                 else if (BLOCK_TYPE.LIFE.sameColor(curpx))
                 {
                 	obj = new ExtraLife();
-                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	obj.pos.set(vecx, vecy);
                 	up = (ExtraLife)obj;
                 }
                 else  // Unknown
@@ -161,6 +167,8 @@ public class Stage
         }
         
         // Decoration
+        bg = new BackgroundNormal();
+        bg.pos.set(0.248f,0.124f);
         
         // Free up some memory
         px.dispose();
@@ -170,6 +178,7 @@ public class Stage
     public void update(float dt)
     {
     	bounds.update(dt);
+    	bg.update(dt);
     	sky.update(dt);
     	ps.update(dt);
     	pl.update(dt);
@@ -178,8 +187,9 @@ public class Stage
     public void render(SpriteBatch bat)
     {
         bounds.render(bat);
+        bg.render(bat);
         sky.render(bat);
-        //ps.render(bat);
+        ps.render(bat);
         //pl.render(bat);
     }
 }

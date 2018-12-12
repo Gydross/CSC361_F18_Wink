@@ -11,9 +11,10 @@ public class Constants
     public static final float VIEWPORT_WIDTH = 5.0f;
     public static final float VIEWPORT_HEIGHT = 5.0f;
     
-    // GUI dimensions.
-    public static final float VIEWPORT_GUI_WIDTH = 639.0f;
-    public static final float VIEWPORT_GUI_HEIGHT = 397.0f;
+    // GUI things.
+    public static final float VIEWPORT_GUI_WIDTH = 1280.0f;
+    public static final float VIEWPORT_GUI_HEIGHT = 960.0f;
+// the font will go here when im ready for it
     
     // Play area dimensions.
     public static final int PLAY_WIDTH = 384;
@@ -24,6 +25,7 @@ public class Constants
     
     // Location of stage file 1
     public static final String STAGE_01 = "stages/stage_01.png";
+    public static final String STAGE_01_BG = "stages/stage_01_bg.png";
     
     // Pixels-to-Meters conversion factors
     public static final float SCALEONE = 0.00775f;  // 1x

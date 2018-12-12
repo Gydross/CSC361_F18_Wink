@@ -15,10 +15,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  */
 public class WorldRenderer implements Disposable
 {
-    private OrthographicCamera cam;
+    public static OrthographicCamera cam;
     private SpriteBatch bat;
     private WorldController wc;
     public Boundary bounds;
+    public static final int ppm = 16;
     
     /**
      * Create
@@ -28,14 +29,16 @@ public class WorldRenderer implements Disposable
     {
         this.wc = wc;
         init();
+        wc.initStage();
     }
     
     private void init()
     {
         bat = new SpriteBatch();
-        cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
-        //cam.position.set(0, 0, 0);
-        cam.setToOrtho(true, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+        cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH / ppm, Constants.VIEWPORT_HEIGHT / ppm);
+        cam.position.set(0, 0, 0);
+        cam.project(cam.position);
+        cam.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         cam.position.set(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2, 0);
         
         cam.update();
@@ -65,9 +68,15 @@ public class WorldRenderer implements Disposable
      */
     public void resize(int w, int h)
     {
-        cam.viewportWidth = (Constants.VIEWPORT_HEIGHT / h) * w;
-        //cam.position.set(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2, 0);
+    	float aspectRatio = w/h;
+    	
+        //cam.position.set(wc.stage.sky.pos.x, wc.stage.sky.pos.y, 0);
         cam.update();
+    }
+    
+    public static Vector3 project(Vector3 in)
+    {
+    	return cam.project(in);
     }
     
     @Override

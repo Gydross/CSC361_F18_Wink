@@ -13,16 +13,29 @@ import com.mygdx.bullethell.util.Constants;
  */
 public abstract class ItemParent extends AbstractGameObject
 {
-	protected TextureRegion myReg = null;
-	protected final float s = Constants.SCALEONE;
+	protected TextureRegion myReg;
 	public boolean collected;
 	public boolean outOfBounds;
 
+	public ItemParent()
+	{
+		init();
+	}
+	
+	private void init()
+	{
+		myReg = getTexReg();
+		termVel.y = 0.075f;
+		
+		collected = false;
+		outOfBounds = false;
+	}
+	
 	public void render(SpriteBatch bat)
 	{
 		if (collected) 
 			return;
-		
+		scale.set(2+(sc),3+(sc*9));
 	    TextureRegion reg = null;    
 	    reg = myReg;    
 	    bat.draw(reg.getTexture(), pos.x, pos.y, origin.x, origin.y, 

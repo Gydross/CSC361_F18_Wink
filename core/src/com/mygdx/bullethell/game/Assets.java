@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
@@ -33,7 +34,7 @@ public class Assets implements Disposable, AssetErrorListener
     public AssetBounds boundary;
     public AssetPickup pickups;
     
-    //public AssetLevelDecoration levelDecoration;
+    public AssetLevelDecoration levelDecoration;
     
     // Singleton
     private Assets() {}
@@ -66,7 +67,7 @@ public class Assets implements Disposable, AssetErrorListener
         bullets_grey = new AssetBulletGrey(a);
         boundary = new AssetBounds(a);
         pickups = new AssetPickup(a);
-        //levelDecoration = new AssetLevelDecoration(a);
+        levelDecoration = new AssetLevelDecoration(a);
     }
     
     /**
@@ -82,6 +83,20 @@ public class Assets implements Disposable, AssetErrorListener
     public void dispose()
     {
         am.dispose();
+    }
+    
+    /**
+     * Compact texture atlas asset loader for the level backgrounds.
+     * @author Aaron Wink
+     */
+    public class AssetLevelDecoration {
+    	public final Texture stage_01_bg_raw;
+    	public final TextureRegion stage_01_bg;
+    	
+    	public AssetLevelDecoration(TextureAtlas a) {
+    		stage_01_bg_raw = new Texture(Constants.STAGE_01_BG);
+    		stage_01_bg = new TextureRegion(stage_01_bg_raw, 0, 0, 384, 3108);
+    	}
     }
     
     /**

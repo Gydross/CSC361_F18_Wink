@@ -1,8 +1,12 @@
 package com.mygdx.bullethell.game.objects;
 
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
@@ -25,6 +29,9 @@ public abstract class AbstractGameObject
     public Vector2 accel;
     public Rectangle bounds;
     public Body body;
+    protected final float sc = Constants.SCALEONE;  // Because I'm tired of typing the whole thing.
+    
+	protected final float boundScale = 0.5f * sc;
     
     public AbstractGameObject()
     {
@@ -38,7 +45,6 @@ public abstract class AbstractGameObject
         friction = new Vector2();
         accel = new Vector2();
         bounds = new Rectangle();
-        
     }
     
     /**
@@ -98,7 +104,6 @@ public abstract class AbstractGameObject
     		pos.set(body.getPosition());
     		rot = body.getAngle() * MathUtils.radiansToDegrees;
     	}
-    	
     }
     
     public abstract void render(SpriteBatch bat);

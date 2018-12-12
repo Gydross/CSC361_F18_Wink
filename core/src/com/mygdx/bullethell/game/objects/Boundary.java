@@ -79,10 +79,10 @@ public class Boundary extends AbstractGameObject
     {
         bounds = new Array<Bound>(numBounds);
         
-        createBox(32, Constants.PLAY_HEIGHT, 0 * scaleOpt, 15 * scaleOpt);  // Leftmost
-        createBox(Constants.PLAY_WIDTH, 8, 32 * scaleOpt, 15 * scaleOpt);
-        createBox(Constants.PLAY_WIDTH, 8, 16 * scaleOpt, 384 * scaleOpt);
-        createBox(8, Constants.PLAY_HEIGHT, 416, Constants.PLAY_HEIGHT); // Rightmost
+        //createBox(16, Constants.PLAY_HEIGHT, 0, 16);
+        //createBox(Constants.PLAY_WIDTH, 8, 16, 8);
+        //createBox(Constants.PLAY_WIDTH, 8, 16, 960);
+        //createBox(16, Constants.PLAY_HEIGHT, 789, Constants.PLAY_HEIGHT);
     }
     
     
