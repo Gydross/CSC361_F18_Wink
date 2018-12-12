@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.bullethell.game.Assets;
+import com.mygdx.bullethell.game.WorldRenderer;
 import com.mygdx.bullethell.util.Constants;
 
 /**
@@ -19,8 +20,8 @@ public class BackgroundNormal extends AbstractGameObject
 	
 	public BackgroundNormal()
 	{
-		length = Constants.PLAY_HEIGHT * Constants.SCALETWO;
-		width = Constants.PLAY_WIDTH * Constants.SCALETWO;
+		length = 39;//Constants.PLAY_HEIGHT * (Constants.SCALEONE * 14);
+		width = 3;
 		init();
 	}
 	

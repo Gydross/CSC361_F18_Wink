@@ -132,7 +132,7 @@ public class Sky extends AbstractGameObject
 		
 		if (isInvincible)
 			bat.setColor(0.8f, 0.0f, 0.8f, 0.75f);
-		
+		scale.set(2+(sc),3+(sc*9));
 		reg = sky;
 		bat.draw(reg.getTexture(), pos.x, pos.y, origin.x, origin.y, 
 				dim.x, dim.y, scale.x, scale.y, rot, reg.getRegionX(),

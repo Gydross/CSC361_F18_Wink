@@ -41,16 +41,14 @@ public class WorldController extends InputAdapter
         ch = new CameraHelper();
         lives = Constants.LIVES_START;
         bombs = Constants.BOMBS_START;
-        initStage();
+        //initStage();
     }
     
-    private void initStage()
+    public void initStage()
     {
         score = 0;
         power = 0;
         stage = new Stage(Constants.STAGE_01);
-        if (ch.hasTarget(stage.sky))
-        	ch.setTarget(stage.sky);
     }
     
     public void update (float dt)
@@ -91,6 +89,8 @@ public class WorldController extends InputAdapter
             Sky.shoot(false);
             */
     }
+    
+    
     
     @Override
     public boolean keyUp(int keycode)

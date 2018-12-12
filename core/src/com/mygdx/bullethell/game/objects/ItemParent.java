@@ -17,11 +17,25 @@ public abstract class ItemParent extends AbstractGameObject
 	public boolean collected;
 	public boolean outOfBounds;
 
+	public ItemParent()
+	{
+		init();
+	}
+	
+	private void init()
+	{
+		myReg = getTexReg();
+		termVel.y = 0.075f;
+		
+		collected = false;
+		outOfBounds = false;
+	}
+	
 	public void render(SpriteBatch bat)
 	{
 		if (collected) 
 			return;
-		
+		scale.set(2+(sc),3+(sc*9));
 	    TextureRegion reg = null;    
 	    reg = myReg;    
 	    bat.draw(reg.getTexture(), pos.x, pos.y, origin.x, origin.y, 
