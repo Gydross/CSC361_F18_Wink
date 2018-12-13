@@ -21,9 +21,14 @@ public class Bomb extends ItemParent
 	
 	private void init()
 	{
-		dim.set(16 * boundScale, 16 * boundScale);
+		this.myReg = getTexReg();
+		dim.set(1,1);
 		origin.set(dim.x / 2, dim.y / 2);
 		bounds.set(0, 0, dim.x, dim.y);
+		termVel.y = 0.075f;
+		
+		collected = false;
+		outOfBounds = false;
 	}
 	
 	@Override
@@ -32,7 +37,7 @@ public class Bomb extends ItemParent
 	}
 
 	@Override
-	protected void specialFunction() {
+	public void specialFunction() {
 		WorldController.bombs += 1;
 	}
 	

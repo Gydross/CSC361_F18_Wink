@@ -32,7 +32,7 @@ public abstract class AbstractGameObject
     protected final float sc = Constants.SCALEONE;  // Because I'm tired of typing the whole thing.
     
 	protected final float boundScale = 0.5f * sc;
-    
+	
     public AbstractGameObject()
     {
         pos = new Vector2();

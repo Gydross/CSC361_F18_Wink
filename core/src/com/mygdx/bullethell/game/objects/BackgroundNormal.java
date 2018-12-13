@@ -20,8 +20,8 @@ public class BackgroundNormal extends AbstractGameObject
 	
 	public BackgroundNormal()
 	{
-		length = 39;//Constants.PLAY_HEIGHT * (Constants.SCALEONE * 14);
-		width = 3;
+		length = 77.625f;
+		width = 6.125f;
 		init();
 	}
 	

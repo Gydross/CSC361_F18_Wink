@@ -4,6 +4,13 @@ size: 64,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+bomb
+  rotate: false
+  xy: 2, 4
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
 bounds_collision_testmarker
   rotate: false
   xy: 22, 6
@@ -11,13 +18,20 @@ bounds_collision_testmarker
   orig: 16, 16
   offset: 0, 0
   index: -1
-bullet_grey
+bullet_grey_small
   rotate: false
   xy: 54, 8
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
-  index: 1
+  index: -1
+extra_life
+  rotate: false
+  xy: 36, 70
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
 fern
   rotate: false
   xy: 2, 74
@@ -32,48 +46,34 @@ frond
   orig: 32, 48
   offset: 0, 0
   index: -1
-item
-  rotate: false
-  xy: 2, 4
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 1
-item
-  rotate: false
-  xy: 36, 70
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 2
-item
+power_large
   rotate: false
   xy: 36, 50
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
-  index: 4
-item
-  rotate: false
-  xy: 36, 30
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 6
-item
+  index: -1
+power_small
   rotate: false
   xy: 40, 16
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
-  index: 3
-item
+  index: -1
+score_large
+  rotate: false
+  xy: 36, 30
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+score_small
   rotate: false
   xy: 40, 2
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
-  index: 5
+  index: -1
 sky
   rotate: false
   xy: 36, 90

@@ -8,12 +8,13 @@ package com.mygdx.bullethell.util;
 public class Constants
 {
     // Visible game world is 5m wide, 5m tall
-    public static final float VIEWPORT_WIDTH = 5.0f;
-    public static final float VIEWPORT_HEIGHT = 5.0f;
+    public static final float VIEWPORT_WIDTH = 16.0f;
+    public static final float VIEWPORT_HEIGHT = 10.0f;
+    public static final float SCALE = VIEWPORT_WIDTH/VIEWPORT_HEIGHT;
     
     // GUI things.
-    public static final float VIEWPORT_GUI_WIDTH = 1280.0f;
-    public static final float VIEWPORT_GUI_HEIGHT = 960.0f;
+    public static final float VIEWPORT_GUI_WIDTH = 640.0f;
+    public static final float VIEWPORT_GUI_HEIGHT = 400.0f;
 // the font will go here when im ready for it
     
     // Play area dimensions.
@@ -22,6 +23,7 @@ public class Constants
     
     // Location of texture atlas
     public static final String TEXTURE_ATLAS_OBJECTS = "images/bhgame.atlas";
+    public static final String UI_OVERLAY = "images/uioverlay.png";
     
     // Location of stage file 1
     public static final String STAGE_01 = "stages/stage_01.png";

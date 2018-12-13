@@ -23,8 +23,8 @@ public class ExtraLife extends ItemParent
 	
 	private void init()
 	{
-		myReg = getTexReg();
-		dim.set(16 * boundScale, 16 * boundScale);
+		this.myReg = getTexReg();
+		dim.set(1,1);
 		origin.set(dim.x / 2, dim.y / 2);
 		bounds.set(0, 0, dim.x, dim.y);
 		termVel.y = 0.075f;
@@ -39,7 +39,7 @@ public class ExtraLife extends ItemParent
 	}
 
 	@Override
-	protected void specialFunction() {
+	public void specialFunction() {
 		WorldController.lives += 1;
 	}
 
