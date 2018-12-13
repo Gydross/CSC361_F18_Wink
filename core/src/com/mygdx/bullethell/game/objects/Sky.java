@@ -24,9 +24,6 @@ public class Sky extends AbstractGameObject
 	
 	public enum MOVE_DIR { LEFT, CENTER, RIGHT }
 	
-	private final float mspeed = 2;		// Regular movement speed
-	private final float focusSpeed = 1;	// Focused movement speed
-	
 	private TextureRegion sky;
 	public MOVE_DIR movedir;
 
@@ -62,21 +59,12 @@ public class Sky extends AbstractGameObject
 	 */
 	public void setMoving(boolean leftPressed, boolean rightPressed)
 	{
-		switch (movedir)
-		{
-			case LEFT:
-				if (leftPressed && !rightPressed)
-					movedir = MOVE_DIR.LEFT;
-				break;
-				
-			case RIGHT:
-				if (!leftPressed && rightPressed)
-					movedir = MOVE_DIR.RIGHT;
-				break;
-				
-			default:
-				movedir = MOVE_DIR.CENTER;
-				break;
+		if (leftPressed && !rightPressed) {
+			movedir = MOVE_DIR.LEFT;
+		} else if (!leftPressed && rightPressed) {
+			movedir = MOVE_DIR.RIGHT;
+		} else {		
+			movedir = MOVE_DIR.CENTER;
 		}
 	}
 	
@@ -140,6 +128,15 @@ public class Sky extends AbstractGameObject
 				false, false);
 		
 		bat.setColor(1, 1, 1, 1);
+	}
+
+	/**
+	 * Sets Sky's shooting state.
+	 * @param shoot - Determines whether she is shooting or not.
+	 */
+	public void setShooting(boolean shoot) 
+	{
+		isShooting = shoot;
 	}
 
 }

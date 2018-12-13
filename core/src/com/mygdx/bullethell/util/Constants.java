@@ -36,4 +36,5 @@ public class Constants
     public static final int LIVES_START = 3;
     public static final int BOMBS_START = 3;
 	public static final float INVINCIBILITY_DURATION = 700; // Time in ms
+	public static final float GAME_OVER_DELAY = 3;
 }
