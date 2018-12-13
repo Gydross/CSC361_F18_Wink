@@ -82,7 +82,7 @@ public abstract class EnemyParent extends AbstractGameObject
 		} else {
 			item = new ExtraLife();
 		}
-		WorldController.stage.items.add(item);
+		WorldController.itemPhysics(item);
 	}
 
 	@Override

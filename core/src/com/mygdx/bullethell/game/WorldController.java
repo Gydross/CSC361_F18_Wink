@@ -94,38 +94,38 @@ public class WorldController extends InputAdapter
      */
     private void handleUserInput(float dt)
     {
-        //if (ch.hasTarget(stage.sky)) 
-        {
-        	float mspeed = 1028 * dt;
-            if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
-                mspeed = 112 * dt;
-                stage.sky.setFocused(true);
-            }
-            
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-                stage.sky.vel.x = -mspeed;
-                stage.sky.setMoving(true, false);
-            } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-                stage.sky.vel.x = mspeed;
-                stage.sky.setMoving(false, true);
-            } else {
-            	stage.sky.vel.x = 0;
-            	stage.sky.setMoving(false, false);
-            }
-            
-            if (Gdx.input.isKeyPressed(Keys.UP)) {
-            	stage.sky.vel.y = mspeed+0.325f;
-            } else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-            	stage.sky.vel.y = -(mspeed+0.325f);
-            } else {
-            	stage.sky.vel.y = 0;
-            }
-            
-            if (Gdx.input.isKeyPressed(Keys.Z))
-                stage.sky.setShooting(true);
-            else
-                stage.sky.setShooting(false);
-        }
+    	float mspeed = 4 * dt;
+    	if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
+    		mspeed = 1 * dt;
+    		stage.sky.setFocused(true);
+    	}
+
+    	// Is Sky moving horizontally?
+    	if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+    		stage.sky.vel.x = -mspeed;
+    		stage.sky.setMoving(true, false);
+    	} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+    		stage.sky.vel.x = mspeed;
+    		stage.sky.setMoving(false, true);
+    	} else {
+    		stage.sky.vel.x = 0;
+    		stage.sky.setMoving(false, false);
+    	}
+
+    	// Is she moving vertically?
+    	if (Gdx.input.isKeyPressed(Keys.UP)) {
+    		stage.sky.vel.y = mspeed+0.325f;
+    	} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+    		stage.sky.vel.y = -(mspeed+0.325f);
+    	} else {
+    		stage.sky.vel.y = 0;
+    	}
+
+    	// Is she shooting?
+    	if (Gdx.input.isKeyPressed(Keys.Z))
+    		stage.sky.setShooting(true);
+    	else
+    		stage.sky.setShooting(false);
     }
     
     /**
@@ -133,33 +133,44 @@ public class WorldController extends InputAdapter
      */
     protected void initPhysics()
     {
+    	itemPhysics(null);
+    }
+    
+    /**
+     * Activates physics for any new item passed to it.
+     * @param item - The item to have physics applied to it.
+     */
+    public static void itemPhysics(ItemParent item)
+    {
+    	if (item == null)
+    		return;
+    	
     	if (b2world != null)
     		b2world.dispose();
     	b2world = new World(new Vector2(0, 0), true);
     	
-    	// Item drops
     	Vector2 origin = new Vector2();
-    	for (ItemParent item : stage.items)
-    	{
-    		BodyDef def = new BodyDef();
-        	def.type = BodyType.DynamicBody;
-        	def.position.set(item.pos);
-        	
-        	Body body = b2world.createBody(def);
-        	item.body = body;
-        	PolygonShape ps = new PolygonShape();
-        	origin.x = item.bounds.width / 2.0f;
-        	origin.y = item.bounds.height / 2.0f;
-        	
-        	ps.setAsBox(item.bounds.width / 2.0f, 
-        			item.bounds.height / 2.0f, origin, 0);
-        	
-        	FixtureDef fd = new FixtureDef();
-        	fd.shape = ps;
-        	body.createFixture(fd);
-        	ps.dispose();
-    	}
+    	BodyDef def = new BodyDef();
+    	def.type = BodyType.DynamicBody;
+    	def.position.set(item.pos);
+
+    	Body body = b2world.createBody(def);
+    	item.body = body;
+    	PolygonShape ps = new PolygonShape();
+    	origin.x = item.bounds.width / 2.0f;
+    	origin.y = item.bounds.height / 2.0f;
+
+    	ps.setAsBox(item.bounds.width / 2.0f, 
+    			item.bounds.height / 2.0f, origin, 0);
+
+    	FixtureDef fd = new FixtureDef();
+    	fd.shape = ps;
+    	fd.density = 10;
+    	fd.friction = 0.65f;
+    	body.createFixture(fd);
+    	ps.dispose();
     	
+    	stage.items.add(item);
     }
     
     @Override
