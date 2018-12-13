@@ -92,10 +92,14 @@ public class Assets implements Disposable, AssetErrorListener
     public class AssetLevelDecoration {
     	public final Texture stage_01_bg_raw;
     	public final TextureRegion stage_01_bg;
+    	public final Texture ui_overlay_raw;
+    	public final TextureRegion ui_overlay;
     	
     	public AssetLevelDecoration(TextureAtlas a) {
     		stage_01_bg_raw = new Texture(Constants.STAGE_01_BG);
     		stage_01_bg = new TextureRegion(stage_01_bg_raw, 0, 0, 384, 3108);
+    		ui_overlay_raw = new Texture(Constants.UI_OVERLAY);
+    		ui_overlay = new TextureRegion(ui_overlay_raw, 0, 0, 639, 397);
     	}
     }
     
@@ -180,7 +184,8 @@ public class Assets implements Disposable, AssetErrorListener
             // Looks for all item # files and loads them.
             for (int i = 1; i < 7; i++)
             {
-                String name = "item_" + i;
+                String name = "item_";
+                name.concat(String.valueOf(i));
                 pickup[i-1] = a.findRegion(name);
             }
         }

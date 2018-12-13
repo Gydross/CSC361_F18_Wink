@@ -16,8 +16,8 @@ public class PowerSmall extends ItemParent
 	 */
 	public PowerSmall()
 	{
+		super();
 		init();
-		
 	}
 	
 	private void init()

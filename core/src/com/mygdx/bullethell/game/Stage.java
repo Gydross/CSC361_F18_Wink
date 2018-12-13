@@ -16,6 +16,7 @@ import com.mygdx.bullethell.game.objects.PowerSmall;
 import com.mygdx.bullethell.game.objects.ScoreLarge;
 import com.mygdx.bullethell.game.objects.ScoreSmall;
 import com.mygdx.bullethell.game.objects.Sky;
+import com.mygdx.bullethell.game.objects.UIoverlay;
 import com.mygdx.bullethell.util.Constants;
 
 /**
@@ -72,6 +73,7 @@ public class Stage
     
     // Decoration
     public BackgroundNormal bg;
+    public UIoverlay overlay;
     
     public Stage(String filename)
     {
@@ -168,7 +170,9 @@ public class Stage
         
         // Decoration
         bg = new BackgroundNormal();
-        bg.pos.set(0.248f,0.124f);
+        bg.pos.set(0.260f,0.124f);
+        overlay = new UIoverlay();
+        overlay.pos.set(0,0);
         
         // Free up some memory
         px.dispose();
@@ -182,6 +186,7 @@ public class Stage
     	sky.update(dt);
     	ps.update(dt);
     	pl.update(dt);
+    	overlay.update(dt);
     }
     
     public void render(SpriteBatch bat)
@@ -189,7 +194,8 @@ public class Stage
         bounds.render(bat);
         bg.render(bat);
         sky.render(bat);
-        ps.render(bat);
+        //ps.render(bat);
         //pl.render(bat);
+        overlay.render(bat);
     }
 }

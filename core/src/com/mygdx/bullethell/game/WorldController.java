@@ -5,6 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.bullethell.game.objects.Boundary;
 import com.mygdx.bullethell.util.CameraHelper;
 import com.mygdx.bullethell.util.Constants;
@@ -25,7 +32,7 @@ public class WorldController extends InputAdapter
 	public static int power;
 	public static int score;
 	public static int highscore;
-
+    public World b2world;
 
 	/**
      * Create
@@ -90,7 +97,25 @@ public class WorldController extends InputAdapter
             */
     }
     
-    
+    /**
+     * Initializes the box2D physics.
+     */
+    protected void initPhysics()
+    {
+    	if (b2world != null)
+    		b2world.dispose();
+    	
+    	// UI Overlay
+    	Vector2 origin = new Vector2();
+    	BodyDef def = new BodyDef();
+    	def.type = BodyType.StaticBody;
+    	def.position.set(stage.overlay.pos);
+    	
+    	Body body = b2world.createBody(def);
+    	stage.overlay.body = body;
+    	PolygonShape ps = new PolygonShape();
+    	
+    }
     
     @Override
     public boolean keyUp(int keycode)

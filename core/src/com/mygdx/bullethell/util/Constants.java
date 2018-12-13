@@ -22,6 +22,7 @@ public class Constants
     
     // Location of texture atlas
     public static final String TEXTURE_ATLAS_OBJECTS = "images/bhgame.atlas";
+    public static final String UI_OVERLAY = "images/uioverlay.png";
     
     // Location of stage file 1
     public static final String STAGE_01 = "stages/stage_01.png";
