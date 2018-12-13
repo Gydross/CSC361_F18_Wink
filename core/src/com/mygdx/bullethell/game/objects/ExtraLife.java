@@ -1,7 +1,6 @@
 package com.mygdx.bullethell.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.bullethell.BulletHellGame;
 import com.mygdx.bullethell.game.Assets;
 import com.mygdx.bullethell.game.WorldController;
 

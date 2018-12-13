@@ -2,9 +2,10 @@ package com.mygdx.bullethell.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mygdx.bullethell.BulletHellGame;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
+
+import BulletHellGame;
 
 public class DesktopLauncher
 {
