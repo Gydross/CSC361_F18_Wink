@@ -11,6 +11,7 @@ import com.mygdx.bullethell.game.objects.BackgroundNormal;
 import com.mygdx.bullethell.game.objects.Bomb;
 import com.mygdx.bullethell.game.objects.Boundary;
 import com.mygdx.bullethell.game.objects.ExtraLife;
+import com.mygdx.bullethell.game.objects.Frond;
 import com.mygdx.bullethell.game.objects.ItemParent;
 import com.mygdx.bullethell.game.objects.PowerLarge;
 import com.mygdx.bullethell.game.objects.PowerSmall;
@@ -64,6 +65,7 @@ public class Stage
     
     // Objects
     public Boundary bounds;
+    public Frond frond;
     public Sky sky;
     public PowerSmall ps;
     public PowerLarge pl;
@@ -86,6 +88,7 @@ public class Stage
     {
         // Objects
         bounds = new Boundary();
+        frond = null;
         sky = null;
         ps = null;
         pl = null;
@@ -121,12 +124,14 @@ public class Stage
                 {
                     obj = new Sky();
                     offsetHeight = -1.0f;
-                    obj.pos.set(1, 1);
+                    obj.pos.set(3f, 1);
                     sky = (Sky)obj;
                 }
                 else if (BLOCK_TYPE.BOSS.sameColor(curpx))  // Boss
                 {
-                    
+                    obj = new Frond();
+                    obj.pos.set(3.25f,6);
+                    frond = (Frond)obj;
                 }
                 else if (BLOCK_TYPE.POWERSMALL.sameColor(curpx))
                 {
@@ -195,6 +200,7 @@ public class Stage
     {
     	bounds.update(dt);
     	bg.update(dt);
+    	frond.update(dt);
     	sky.update(dt);
     	for (ItemParent item : items)
     		item.update(dt);
@@ -205,6 +211,7 @@ public class Stage
     {
         bounds.render(bat);
         bg.render(bat);
+        frond.render(bat);
         sky.render(bat);
         for (ItemParent item : items)
         	item.render(bat);
