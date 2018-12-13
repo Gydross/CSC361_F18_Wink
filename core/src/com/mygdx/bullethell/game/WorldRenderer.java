@@ -29,7 +29,6 @@ public class WorldRenderer implements Disposable
     {
         this.wc = wc;
         init();
-        wc.initStage();
     }
     
     private void init()

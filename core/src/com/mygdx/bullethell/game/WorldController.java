@@ -25,6 +25,8 @@ public class WorldController extends InputAdapter
 	public static int power;
 	public static int score;
 	public static int highscore;
+	
+	private float gameOverDelay;
 
 
 	/**
@@ -41,7 +43,8 @@ public class WorldController extends InputAdapter
         ch = new CameraHelper();
         lives = Constants.LIVES_START;
         bombs = Constants.BOMBS_START;
-        //initStage();
+        gameOverDelay = 0;
+        initStage();
     }
     
     public void initStage()
@@ -53,9 +56,19 @@ public class WorldController extends InputAdapter
     
     public void update (float dt)
     {
-        handleUserInput(dt);
-        ch.update(dt);
+        if (isGameOver())
+        {
+        	gameOverDelay -= dt;
+        	if (gameOverDelay < 0)
+        		init();
+        } else {
+        	handleUserInput(dt);
+        }
         stage.update(dt);
+        ch.update(dt);
+        
+        if (isGameOver())
+        	gameOverDelay = Constants.GAME_OVER_DELAY;
     }
     
     /**
@@ -64,33 +77,39 @@ public class WorldController extends InputAdapter
      */
     private void handleUserInput(float dt)
     {
-        if (Gdx.app.getType() != ApplicationType.Desktop)
-            return;
-        /*
-        float mspeed = 2 * dt;
-        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-            mspeed = 1 * dt;
-        
-        if (Gdx.input.isKeyPressed(Keys.LEFT))
-            moveSelectedSprite(-mspeed, 0);
-
-        if (Gdx.input.isKeyPressed(Keys.RIGHT))
-            moveSelectedSprite(mspeed, 0);
-        
-        if (Gdx.input.isKeyPressed(Keys.UP))
-            moveSelectedSprite(0, mspeed);
-        
-        if (Gdx.input.isKeyPressed(Keys.DOWN))
-            moveSelectedSprite(0, -mspeed);
-        
-        if (Gdx.input.isKeyPressed(Keys.Z))
-            Sky.shoot(true);
-        else
-            Sky.shoot(false);
-            */
+        //if (ch.hasTarget(stage.sky)) 
+        {
+        	float mspeed = 64 * dt;
+            if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
+                mspeed = 28 * dt;
+                stage.sky.setFocused(true);
+            }
+            
+            if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+                stage.sky.vel.x = -mspeed;
+                stage.sky.setMoving(true, false);
+            } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+                stage.sky.vel.x = mspeed;
+                stage.sky.setMoving(false, true);
+            } else {
+            	stage.sky.vel.x = 0;
+            	stage.sky.setMoving(false, false);
+            }
+            
+            if (Gdx.input.isKeyPressed(Keys.UP)) {
+            	stage.sky.vel.y = mspeed;
+            } else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+            	stage.sky.vel.y = -mspeed;
+            } else {
+            	stage.sky.vel.y = 0;
+            }
+            
+            if (Gdx.input.isKeyPressed(Keys.Z))
+                stage.sky.setShooting(true);
+            else
+                stage.sky.setShooting(false);
+        }
     }
-    
-    
     
     @Override
     public boolean keyUp(int keycode)
@@ -101,9 +120,11 @@ public class WorldController extends InputAdapter
             init();
             Gdx.app.debug(TAG, "Game world has been reset.");
         }
-            
         return false;
     }
     
-    
+    public boolean isGameOver()
+    {
+    	return lives < 0;
+    }
 }
