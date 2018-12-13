@@ -181,13 +181,12 @@ public class Assets implements Disposable, AssetErrorListener
     public class AssetPickup {
         public final AtlasRegion[] pickup = new AtlasRegion[6];
         public AssetPickup(TextureAtlas a) {
-            // Looks for all item # files and loads them.
-            for (int i = 1; i < 7; i++)
-            {
-                String name = "item_";
-                name.concat(String.valueOf(i));
-                pickup[i-1] = a.findRegion(name);
-            }
+        	pickup[0] = new AtlasRegion(a.findRegion("extra_life"));
+        	pickup[1] = new AtlasRegion(a.findRegion("bomb"));
+        	pickup[2] = new AtlasRegion(a.findRegion("power_small"));
+        	pickup[3] = new AtlasRegion(a.findRegion("power_large"));
+        	pickup[4] = new AtlasRegion(a.findRegion("score_small"));
+        	pickup[5] = new AtlasRegion(a.findRegion("score_large"));
         }
     }
 }

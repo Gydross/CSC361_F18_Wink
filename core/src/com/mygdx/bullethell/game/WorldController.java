@@ -13,8 +13,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.bullethell.game.objects.Boundary;
+import com.mygdx.bullethell.game.objects.ItemParent;
 import com.mygdx.bullethell.util.CameraHelper;
 import com.mygdx.bullethell.util.Constants;
+import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.bullethell.game.objects.Sky;
+import com.mygdx.bullethell.game.objects.UIoverlay;
 
 /**
  * Controls the world and the locations of objects within it.
@@ -33,6 +37,10 @@ public class WorldController extends InputAdapter
 	public static int score;
 	public static int highscore;
     public World b2world;
+    
+    // Rectangles for collision detection
+    private Rectangle r1 = new Rectangle();
+    private Rectangle r2 = new Rectangle();
 	
 	private float gameOverDelay;
 
@@ -60,6 +68,7 @@ public class WorldController extends InputAdapter
         score = 0;
         power = 0;
         stage = new Stage(Constants.STAGE_01);
+        initPhysics();
     }
     
     public void update (float dt)
@@ -87,9 +96,9 @@ public class WorldController extends InputAdapter
     {
         //if (ch.hasTarget(stage.sky)) 
         {
-        	float mspeed = 64 * dt;
+        	float mspeed = 1028 * dt;
             if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
-                mspeed = 28 * dt;
+                mspeed = 112 * dt;
                 stage.sky.setFocused(true);
             }
             
@@ -105,9 +114,9 @@ public class WorldController extends InputAdapter
             }
             
             if (Gdx.input.isKeyPressed(Keys.UP)) {
-            	stage.sky.vel.y = mspeed;
+            	stage.sky.vel.y = mspeed+0.325f;
             } else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-            	stage.sky.vel.y = -mspeed;
+            	stage.sky.vel.y = -(mspeed+0.325f);
             } else {
             	stage.sky.vel.y = 0;
             }
@@ -126,16 +135,30 @@ public class WorldController extends InputAdapter
     {
     	if (b2world != null)
     		b2world.dispose();
+    	b2world = new World(new Vector2(0, 0), true);
     	
-    	// UI Overlay
+    	// Item drops
     	Vector2 origin = new Vector2();
-    	BodyDef def = new BodyDef();
-    	def.type = BodyType.StaticBody;
-    	def.position.set(stage.overlay.pos);
-    	
-    	Body body = b2world.createBody(def);
-    	stage.overlay.body = body;
-    	PolygonShape ps = new PolygonShape();
+    	for (ItemParent item : stage.items)
+    	{
+    		BodyDef def = new BodyDef();
+        	def.type = BodyType.DynamicBody;
+        	def.position.set(item.pos);
+        	
+        	Body body = b2world.createBody(def);
+        	item.body = body;
+        	PolygonShape ps = new PolygonShape();
+        	origin.x = item.bounds.width / 2.0f;
+        	origin.y = item.bounds.height / 2.0f;
+        	
+        	ps.setAsBox(item.bounds.width / 2.0f, 
+        			item.bounds.height / 2.0f, origin, 0);
+        	
+        	FixtureDef fd = new FixtureDef();
+        	fd.shape = ps;
+        	body.createFixture(fd);
+        	ps.dispose();
+    	}
     	
     }
     
@@ -154,5 +177,27 @@ public class WorldController extends InputAdapter
     public boolean isGameOver()
     {
     	return lives < 0;
+    }
+    
+    private void skyBorderColl(UIoverlay ui) {};
+    private void skyCollectItem(ItemParent ip) {};
+    
+    private void collisions(float dt)
+    {
+    	r1.set(stage.sky.pos.x, stage.sky.pos.y, 
+    			stage.sky.bounds.width, stage.sky.bounds.height);
+    	
+    	// Collision: Sky <-> UI Overlay (boundaries of game)
+    	//for ()
+    	{
+    		
+    	}
+    		
+    	// Collision: Sky <-> All items
+    	for (ItemParent item : stage.items)
+    	{
+    		item.collected = true;
+    		item.specialFunction();
+    	}
     }
 }

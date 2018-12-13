@@ -19,7 +19,6 @@ public class WorldRenderer implements Disposable
     private SpriteBatch bat;
     private WorldController wc;
     public Boundary bounds;
-    public static final int ppm = 16;
     
     /**
      * Create
@@ -34,12 +33,10 @@ public class WorldRenderer implements Disposable
     private void init()
     {
         bat = new SpriteBatch();
-        cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH / ppm, Constants.VIEWPORT_HEIGHT / ppm);
-        cam.position.set(0, 0, 0);
-        cam.project(cam.position);
-        cam.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
-        cam.position.set(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2, 0);
-        
+        cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
+        //cam.position.set(0, 0, 0);
+        //cam.project(cam.position);
+        cam.position.set(Constants.VIEWPORT_WIDTH/3.125f, Constants.VIEWPORT_HEIGHT/2, 0);
         cam.update();
     }
     
@@ -53,7 +50,6 @@ public class WorldRenderer implements Disposable
     
     private void renderWorld(SpriteBatch bat)
     {
-        //wc.ch.applyTo(cam);
         bat.setProjectionMatrix(cam.combined);
         bat.begin();
         wc.stage.render(bat);
@@ -67,15 +63,8 @@ public class WorldRenderer implements Disposable
      */
     public void resize(int w, int h)
     {
-    	float aspectRatio = w/h;
-    	
-        //cam.position.set(wc.stage.sky.pos.x, wc.stage.sky.pos.y, 0);
+        cam.viewportWidth = (Constants.VIEWPORT_WIDTH / w) * h;
         cam.update();
-    }
-    
-    public static Vector3 project(Vector3 in)
-    {
-    	return cam.project(in);
     }
     
     @Override

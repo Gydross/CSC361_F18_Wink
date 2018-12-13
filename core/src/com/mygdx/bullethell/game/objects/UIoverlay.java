@@ -15,19 +15,19 @@ import com.mygdx.bullethell.util.Constants;
 public class UIoverlay extends AbstractGameObject
 {
 	private TextureRegion regBG;
-	private float length;
+	private float height;
 	private float width;
 	
 	public UIoverlay()
 	{
-		length = 5;
-		width = 4.998f;
+		height = 10;
+		width = 10.125f;
 		init();
 	}
 	
 	private void init()
 	{
-		dim.set(width, length);
+		dim.set(width, height);
 		
 		regBG = Assets.instance.levelDecoration.ui_overlay;
 		origin.set(0,0);

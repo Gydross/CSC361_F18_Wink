@@ -21,7 +21,7 @@ public class PowerLarge extends ItemParent
 	
 	private void init()
 	{
-		myReg = getTexReg();
+		this.myReg = getTexReg();
 		dim.set(16 * boundScale, 16 * boundScale);
 		origin.set(dim.x / 2, dim.y / 2);
 		bounds.set(0, 0, dim.x, dim.y);
@@ -37,7 +37,7 @@ public class PowerLarge extends ItemParent
 	}
 
 	@Override
-	protected void specialFunction() {
+	public void specialFunction() {
 		WorldController.power += 10;
 	}
 

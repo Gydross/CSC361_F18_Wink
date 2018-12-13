@@ -11,6 +11,7 @@ import com.mygdx.bullethell.game.objects.BackgroundNormal;
 import com.mygdx.bullethell.game.objects.Bomb;
 import com.mygdx.bullethell.game.objects.Boundary;
 import com.mygdx.bullethell.game.objects.ExtraLife;
+import com.mygdx.bullethell.game.objects.ItemParent;
 import com.mygdx.bullethell.game.objects.PowerLarge;
 import com.mygdx.bullethell.game.objects.PowerSmall;
 import com.mygdx.bullethell.game.objects.ScoreLarge;
@@ -70,6 +71,7 @@ public class Stage
     public ScoreLarge sl;
     public Bomb bomb;
     public ExtraLife up;
+    public Array<ItemParent> items;
     
     // Decoration
     public BackgroundNormal bg;
@@ -91,6 +93,7 @@ public class Stage
         sl = null;
         bomb = null;
         up = null;
+        items = new Array<ItemParent>();
         
         // Load level file
         Pixmap px = new Pixmap(Gdx.files.internal(filename));
@@ -103,11 +106,11 @@ public class Stage
             {
                 AbstractGameObject obj = null;
                 float offsetHeight = 0;
-                float vecx = ((pxX * Constants.SCALEONE) * 8) + 0.248f;
-                float vecy = (pxY * Constants.SCALEONE) + 0.124f;
+                //float vecx = ((pxX / 16) / 8) * Constants.SCALE;
+                //float vecy = ((pxY / 16) / 8) * 3 * Constants.SCALE;
                 
                 // Height grows, bottom to top
-                float baseHeight = px.getHeight() - pxY;
+                float baseHeight = (px.getHeight() - pxY) / 16;
                 
                 // Get color of pixel
                 int curpx = px.getPixel(pxX, pxY);
@@ -117,7 +120,8 @@ public class Stage
                 else if (BLOCK_TYPE.PLAYER.sameColor(curpx))  // Player
                 {
                     obj = new Sky();
-                    obj.pos.set(vecx, vecy);
+                    offsetHeight = -1.0f;
+                    obj.pos.set(1, 1);
                     sky = (Sky)obj;
                 }
                 else if (BLOCK_TYPE.BOSS.sameColor(curpx))  // Boss
@@ -127,38 +131,44 @@ public class Stage
                 else if (BLOCK_TYPE.POWERSMALL.sameColor(curpx))
                 {
                 	obj = new PowerSmall();
-                	obj.pos.set(vecx, vecy);
-                	ps = (PowerSmall)obj;
+                	offsetHeight = -0.5f;
+                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	items.add((PowerSmall)obj);
                 }
                 else if (BLOCK_TYPE.POWERLARGE.sameColor(curpx))
                 {
                 	obj = new PowerLarge();
-                	obj.pos.set(vecx, vecy);
-                	pl = (PowerLarge)obj;
+                	offsetHeight = -1;
+                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	items.add((PowerLarge)obj);
                 }
                 else if (BLOCK_TYPE.SCORESMALL.sameColor(curpx))
                 {
                 	obj = new ScoreSmall();
-                	obj.pos.set(vecx, vecy);
-                	ss = (ScoreSmall)obj;
+                	offsetHeight = -0.5f;
+                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	items.add((ScoreSmall)obj);
                 }
                 else if (BLOCK_TYPE.SCORELARGE.sameColor(curpx))
                 {
                 	obj = new ScoreLarge();
-                	obj.pos.set(vecx, vecy);
-                	sl = (ScoreLarge)obj;
+                	offsetHeight = -1;
+                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	items.add((ScoreLarge)obj);
                 }
                 else if (BLOCK_TYPE.BOMB.sameColor(curpx))
                 {
                 	obj = new Bomb();
-                	obj.pos.set(vecx, vecy);
-                	bomb = (Bomb)obj;
+                	offsetHeight = -1;
+                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	items.add((Bomb)obj);
                 }
                 else if (BLOCK_TYPE.LIFE.sameColor(curpx))
                 {
                 	obj = new ExtraLife();
-                	obj.pos.set(vecx, vecy);
-                	up = (ExtraLife)obj;
+                	offsetHeight = -1;
+                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	items.add((ExtraLife)obj);
                 }
                 else  // Unknown
                 {
@@ -170,8 +180,10 @@ public class Stage
         
         // Decoration
         bg = new BackgroundNormal();
-        bg.pos.set(0.260f,0.124f);
+        bg.origin.set(0,0);
+        bg.pos.set(0.5f,0.375f);
         overlay = new UIoverlay();
+        overlay.origin.set(0,0);
         overlay.pos.set(0,0);
         
         // Free up some memory
@@ -184,8 +196,8 @@ public class Stage
     	bounds.update(dt);
     	bg.update(dt);
     	sky.update(dt);
-    	ps.update(dt);
-    	pl.update(dt);
+    	for (ItemParent item : items)
+    		item.update(dt);
     	overlay.update(dt);
     }
     
@@ -194,8 +206,8 @@ public class Stage
         bounds.render(bat);
         bg.render(bat);
         sky.render(bat);
-        //ps.render(bat);
-        //pl.render(bat);
+        for (ItemParent item : items)
+        	item.render(bat);
         overlay.render(bat);
     }
 }

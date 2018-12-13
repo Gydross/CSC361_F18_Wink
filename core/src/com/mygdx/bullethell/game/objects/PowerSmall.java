@@ -16,13 +16,12 @@ public class PowerSmall extends ItemParent
 	 */
 	public PowerSmall()
 	{
-		super();
 		init();
 	}
 	
 	private void init()
 	{
-		myReg = getTexReg();
+		this.myReg = getTexReg();
 		dim.set(8 * boundScale, 8 * boundScale);
 		origin.set(dim.x / 2, dim.y / 2);
 		bounds.set(0, 0, dim.x, dim.y);
@@ -38,7 +37,7 @@ public class PowerSmall extends ItemParent
 	}
 
 	@Override
-	protected void specialFunction() {
+	public void specialFunction() {
 		WorldController.power += 1;
 	}
 

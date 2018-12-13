@@ -20,8 +20,8 @@ public class BackgroundNormal extends AbstractGameObject
 	
 	public BackgroundNormal()
 	{
-		length = 39;
-		width = 3;
+		length = 77.625f;
+		width = 6.125f;
 		init();
 	}
 	

@@ -25,7 +25,7 @@ public abstract class ItemParent extends AbstractGameObject
 	private void init()
 	{
 		myReg = getTexReg();
-		termVel.y = 0.075f;
+		termVel.set(0,1);
 		
 		collected = false;
 		outOfBounds = false;
@@ -35,9 +35,10 @@ public abstract class ItemParent extends AbstractGameObject
 	{
 		if (collected) 
 			return;
-		scale.set(2+(sc),3+(sc*9));
-	    TextureRegion reg = null;    
-	    reg = myReg;    
+		scale.set(0.625f * 0.25f,0.25f);
+	    TextureRegion reg = new TextureRegion();
+	    reg.setRegion(this.getTexReg());
+	    
 	    bat.draw(reg.getTexture(), pos.x, pos.y, origin.x, origin.y, 
 	    	dim.x, dim.y, scale.x, scale.y,  rot, reg.getRegionX(), 
 	    	reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), 
@@ -45,5 +46,5 @@ public abstract class ItemParent extends AbstractGameObject
 	}
 	
 	protected abstract TextureRegion getTexReg();	// Retrieves the texture for the item.
-	protected abstract void specialFunction();		// What the specific item does, i.e. giving an extra life.
+	public abstract void specialFunction();		// What the specific item does, i.e. giving an extra life.
 }
