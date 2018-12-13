@@ -30,13 +30,13 @@ public class WorldController extends InputAdapter
     private static final String TAG = WorldController.class.getName();
     
     public CameraHelper ch;
-	public Stage stage;
+	public static Stage stage;
 	public static int lives;
 	public static int bombs;
 	public static int power;
 	public static int score;
 	public static int highscore;
-    public World b2world;
+    public static World b2world;
     
     // Rectangles for collision detection
     private Rectangle r1 = new Rectangle();
