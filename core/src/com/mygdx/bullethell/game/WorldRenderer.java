@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  */
 public class WorldRenderer implements Disposable
 {
-    private OrthographicCamera cam;
+    public static OrthographicCamera cam;
     private SpriteBatch bat;
     private WorldController wc;
     public Boundary bounds;
@@ -35,9 +35,8 @@ public class WorldRenderer implements Disposable
         bat = new SpriteBatch();
         cam = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         //cam.position.set(0, 0, 0);
-        cam.setToOrtho(true, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
-        cam.position.set(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2, 0);
-        
+        //cam.project(cam.position);
+        cam.position.set(Constants.VIEWPORT_WIDTH/3.125f, Constants.VIEWPORT_HEIGHT/2, 0);
         cam.update();
     }
     
@@ -51,7 +50,6 @@ public class WorldRenderer implements Disposable
     
     private void renderWorld(SpriteBatch bat)
     {
-        wc.ch.applyTo(cam);
         bat.setProjectionMatrix(cam.combined);
         bat.begin();
         wc.stage.render(bat);
@@ -65,8 +63,7 @@ public class WorldRenderer implements Disposable
      */
     public void resize(int w, int h)
     {
-        cam.viewportWidth = (Constants.VIEWPORT_HEIGHT / h) * w;
-        //cam.position.set(Constants.VIEWPORT_WIDTH/2, Constants.VIEWPORT_HEIGHT/2, 0);
+        cam.viewportWidth = (Constants.VIEWPORT_WIDTH / w) * h;
         cam.update();
     }
     

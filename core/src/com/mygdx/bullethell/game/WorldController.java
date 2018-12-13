@@ -5,9 +5,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.bullethell.game.objects.Boundary;
+import com.mygdx.bullethell.game.objects.ItemParent;
 import com.mygdx.bullethell.util.CameraHelper;
 import com.mygdx.bullethell.util.Constants;
+import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.bullethell.game.objects.Sky;
+import com.mygdx.bullethell.game.objects.UIoverlay;
 
 /**
  * Controls the world and the locations of objects within it.
@@ -19,13 +30,22 @@ public class WorldController extends InputAdapter
     private static final String TAG = WorldController.class.getName();
     
     public CameraHelper ch;
-    public Stage stage;
-    public int lives;
-    public int bombs;
-    public int score;
-    public int highscore;
+	public static Stage stage;
+	public static int lives;
+	public static int bombs;
+	public static int power;
+	public static int score;
+	public static int highscore;
+    public static World b2world;
     
-    /**
+    // Rectangles for collision detection
+    private Rectangle r1 = new Rectangle();
+    private Rectangle r2 = new Rectangle();
+	
+	private float gameOverDelay;
+
+
+	/**
      * Create
      */
     public WorldController()
@@ -39,19 +59,33 @@ public class WorldController extends InputAdapter
         ch = new CameraHelper();
         lives = Constants.LIVES_START;
         bombs = Constants.BOMBS_START;
+        gameOverDelay = 0;
         initStage();
     }
     
-    private void initStage()
+    public void initStage()
     {
         score = 0;
+        power = 0;
         stage = new Stage(Constants.STAGE_01);
+        initPhysics();
     }
     
     public void update (float dt)
     {
-        handleUserInput(dt);
+        if (isGameOver())
+        {
+        	gameOverDelay -= dt;
+        	if (gameOverDelay < 0)
+        		init();
+        } else {
+        	handleUserInput(dt);
+        }
+        stage.update(dt);
         ch.update(dt);
+        
+        if (isGameOver())
+        	gameOverDelay = Constants.GAME_OVER_DELAY;
     }
     
     /**
@@ -60,30 +94,83 @@ public class WorldController extends InputAdapter
      */
     private void handleUserInput(float dt)
     {
-        if (Gdx.app.getType() != ApplicationType.Desktop)
-            return;
-        /*
-        float mspeed = 2 * dt;
-        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-            mspeed = 1 * dt;
-        
-        if (Gdx.input.isKeyPressed(Keys.LEFT))
-            moveSelectedSprite(-mspeed, 0);
+    	float mspeed = 4 * dt;
+    	if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
+    		mspeed = 1 * dt;
+    		stage.sky.setFocused(true);
+    	}
 
-        if (Gdx.input.isKeyPressed(Keys.RIGHT))
-            moveSelectedSprite(mspeed, 0);
-        
-        if (Gdx.input.isKeyPressed(Keys.UP))
-            moveSelectedSprite(0, mspeed);
-        
-        if (Gdx.input.isKeyPressed(Keys.DOWN))
-            moveSelectedSprite(0, -mspeed);
-        
-        if (Gdx.input.isKeyPressed(Keys.Z))
-            Sky.shoot(true);
-        else
-            Sky.shoot(false);
-            */
+    	// Is Sky moving horizontally?
+    	if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+    		stage.sky.vel.x = -mspeed;
+    		stage.sky.setMoving(true, false);
+    	} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+    		stage.sky.vel.x = mspeed;
+    		stage.sky.setMoving(false, true);
+    	} else {
+    		stage.sky.vel.x = 0;
+    		stage.sky.setMoving(false, false);
+    	}
+
+    	// Is she moving vertically?
+    	if (Gdx.input.isKeyPressed(Keys.UP)) {
+    		stage.sky.vel.y = mspeed+0.325f;
+    	} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+    		stage.sky.vel.y = -(mspeed+0.325f);
+    	} else {
+    		stage.sky.vel.y = 0;
+    	}
+
+    	// Is she shooting?
+    	if (Gdx.input.isKeyPressed(Keys.Z))
+    		stage.sky.setShooting(true);
+    	else
+    		stage.sky.setShooting(false);
+    }
+    
+    /**
+     * Initializes the box2D physics.
+     */
+    protected void initPhysics()
+    {
+    	itemPhysics(null);
+    }
+    
+    /**
+     * Activates physics for any new item passed to it.
+     * @param item - The item to have physics applied to it.
+     */
+    public static void itemPhysics(ItemParent item)
+    {
+    	if (item == null)
+    		return;
+    	
+    	if (b2world != null)
+    		b2world.dispose();
+    	b2world = new World(new Vector2(0, 0), true);
+    	
+    	Vector2 origin = new Vector2();
+    	BodyDef def = new BodyDef();
+    	def.type = BodyType.DynamicBody;
+    	def.position.set(item.pos);
+
+    	Body body = b2world.createBody(def);
+    	item.body = body;
+    	PolygonShape ps = new PolygonShape();
+    	origin.x = item.bounds.width / 2.0f;
+    	origin.y = item.bounds.height / 2.0f;
+
+    	ps.setAsBox(item.bounds.width / 2.0f, 
+    			item.bounds.height / 2.0f, origin, 0);
+
+    	FixtureDef fd = new FixtureDef();
+    	fd.shape = ps;
+    	fd.density = 10;
+    	fd.friction = 0.65f;
+    	body.createFixture(fd);
+    	ps.dispose();
+    	
+    	stage.items.add(item);
     }
     
     @Override
@@ -95,7 +182,33 @@ public class WorldController extends InputAdapter
             init();
             Gdx.app.debug(TAG, "Game world has been reset.");
         }
-            
         return false;
+    }
+    
+    public boolean isGameOver()
+    {
+    	return lives < 0;
+    }
+    
+    private void skyBorderColl(UIoverlay ui) {};
+    private void skyCollectItem(ItemParent ip) {};
+    
+    private void collisions(float dt)
+    {
+    	r1.set(stage.sky.pos.x, stage.sky.pos.y, 
+    			stage.sky.bounds.width, stage.sky.bounds.height);
+    	
+    	// Collision: Sky <-> UI Overlay (boundaries of game)
+    	//for ()
+    	{
+    		
+    	}
+    		
+    	// Collision: Sky <-> All items
+    	for (ItemParent item : stage.items)
+    	{
+    		item.collected = true;
+    		item.specialFunction();
+    	}
     }
 }

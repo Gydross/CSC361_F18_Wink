@@ -86,5 +86,14 @@ public class BulletHellGame implements ApplicationListener
         wr.dispose();
         Assets.instance.dispose();
     }
+    
+    public WorldController getWC()
+    {
+    	return wc;
+    }
 
+    public WorldRenderer getWR()
+    {
+    	return wr;
+    }
 }

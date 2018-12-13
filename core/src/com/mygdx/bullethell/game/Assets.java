@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
@@ -31,7 +32,9 @@ public class Assets implements Disposable, AssetErrorListener
     public AssetFern fern;
     public AssetBulletGrey bullets_grey;
     public AssetBounds boundary;
-    //public AssetLevelDecoration levelDecoration;
+    public AssetPickup pickups;
+    
+    public AssetLevelDecoration levelDecoration;
     
     // Singleton
     private Assets() {}
@@ -63,7 +66,8 @@ public class Assets implements Disposable, AssetErrorListener
         fern = new AssetFern(a);
         bullets_grey = new AssetBulletGrey(a);
         boundary = new AssetBounds(a);
-        //levelDecoration = new AssetLevelDecoration(a);
+        pickups = new AssetPickup(a);
+        levelDecoration = new AssetLevelDecoration(a);
     }
     
     /**
@@ -79,6 +83,24 @@ public class Assets implements Disposable, AssetErrorListener
     public void dispose()
     {
         am.dispose();
+    }
+    
+    /**
+     * Compact texture atlas asset loader for the level backgrounds.
+     * @author Aaron Wink
+     */
+    public class AssetLevelDecoration {
+    	public final Texture stage_01_bg_raw;
+    	public final TextureRegion stage_01_bg;
+    	public final Texture ui_overlay_raw;
+    	public final TextureRegion ui_overlay;
+    	
+    	public AssetLevelDecoration(TextureAtlas a) {
+    		stage_01_bg_raw = new Texture(Constants.STAGE_01_BG);
+    		stage_01_bg = new TextureRegion(stage_01_bg_raw, 0, 0, 384, 3108);
+    		ui_overlay_raw = new Texture(Constants.UI_OVERLAY);
+    		ui_overlay = new TextureRegion(ui_overlay_raw, 0, 0, 639, 397);
+    	}
     }
     
     /**
@@ -149,6 +171,22 @@ public class Assets implements Disposable, AssetErrorListener
         public final AtlasRegion bound;
         public AssetBounds(TextureAtlas a) {
             bound = a.findRegion("bounds_collision_testmarker");
+        }
+    }
+    
+    /**
+     * Compact texture atlas asset loader for all items.
+     * @author Aaron Wink
+     */
+    public class AssetPickup {
+        public final AtlasRegion[] pickup = new AtlasRegion[6];
+        public AssetPickup(TextureAtlas a) {
+        	pickup[0] = new AtlasRegion(a.findRegion("extra_life"));
+        	pickup[1] = new AtlasRegion(a.findRegion("bomb"));
+        	pickup[2] = new AtlasRegion(a.findRegion("power_small"));
+        	pickup[3] = new AtlasRegion(a.findRegion("power_large"));
+        	pickup[4] = new AtlasRegion(a.findRegion("score_small"));
+        	pickup[5] = new AtlasRegion(a.findRegion("score_large"));
         }
     }
 }

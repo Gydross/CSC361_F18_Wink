@@ -19,6 +19,7 @@ public class Boundary extends AbstractGameObject
     public int box;                   // The current bounding box
     private final int numBounds = 4;  // There are only four boundaries around the play area
     public int visible = 1;           // May be toggled here for testing.
+    float scaleOpt = Constants.SCALEONE;
     
     /**
      * The individual boundary internal class.
@@ -44,8 +45,8 @@ public class Boundary extends AbstractGameObject
          * @param bat - The SpriteBatch for rendering.
          * @param x - The x coordinate the texture will be rendered at.
          * @param y - The y coordinate the texture will be rendered at.
-         * @param coordX - The horizontal scaling of the texture.
-         * @param coordY - The vertical scaling of the texture.
+         * @param scaleX - The horizontal scaling of the texture.
+         * @param scaleY - The vertical scaling of the texture.
          */
         public void render(SpriteBatch bat, float x, float y, float scaleX, float scaleY)
         {
@@ -70,7 +71,7 @@ public class Boundary extends AbstractGameObject
     /**
      * Creates all of the boxes.
      * Based on the assumption that the drawing origin is the lower left of the screen.
-     * The play space is 773 x 944, so let's work off of that.
+     * The play space is 384px x 368px, so let's work off of that.
      * 
      * Average level length is 3232px.
      */
@@ -78,10 +79,10 @@ public class Boundary extends AbstractGameObject
     {
         bounds = new Array<Bound>(numBounds);
         
-        createBox(16, Constants.PLAY_HEIGHT, 0, 16);
-        createBox(Constants.PLAY_WIDTH, 8, 16, 8);
-        createBox(Constants.PLAY_WIDTH, 8, 16, 960);
-        createBox(16, Constants.PLAY_HEIGHT, 789, Constants.PLAY_HEIGHT);
+        //createBox(16, Constants.PLAY_HEIGHT, 0, 16);
+        //createBox(Constants.PLAY_WIDTH, 8, 16, 8);
+        //createBox(Constants.PLAY_WIDTH, 8, 16, 960);
+        //createBox(16, Constants.PLAY_HEIGHT, 789, Constants.PLAY_HEIGHT);
     }
     
     
@@ -89,12 +90,12 @@ public class Boundary extends AbstractGameObject
      * Creates each boundary, assigns them properties, and adds them to the array list.
      * @param w - The width of the boundary
      * @param h - The height of the boundary
-     * @param posx - The desired x position of the boundary
-     * @param posy - The desired y position of the boundary
+     * @param f - The desired x position of the boundary
+     * @param g - The desired y position of the boundary
      */
-    private void createBox(float w, float h, int posx, int posy)
+    private void createBox(float w, float h, float f, float g)
     {
-        float scaleOpt = Constants.SCALEONE;
+        
         Bound box = new Bound(w * scaleOpt, h * scaleOpt);
         
         // Ensures origin is set at (0, 0)
