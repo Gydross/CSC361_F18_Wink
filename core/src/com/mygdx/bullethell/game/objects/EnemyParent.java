@@ -62,7 +62,7 @@ public abstract class EnemyParent extends AbstractGameObject
 	 *   Bomb = 7.5%
 	 *   Extra life = 2.5%
 	 */
-	private void genLoot() {
+	protected void genLoot() {
 		ItemParent item = null;
 		double rng = Math.random();
 		

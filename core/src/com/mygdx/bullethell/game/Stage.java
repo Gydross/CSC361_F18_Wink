@@ -64,7 +64,7 @@ public class Stage
     }
     
     // Objects
-    public Boundary bounds;
+    public Array<ItemParent> items;
     public Frond frond;
     public Sky sky;
     public PowerSmall ps;
@@ -73,7 +73,7 @@ public class Stage
     public ScoreLarge sl;
     public Bomb bomb;
     public ExtraLife up;
-    public Array<ItemParent> items;
+    public Boundary bounds;
     
     // Decoration
     public BackgroundNormal bg;
@@ -87,7 +87,7 @@ public class Stage
     private void init(String filename)
     {
         // Objects
-        bounds = new Boundary();
+    	items = new Array<ItemParent>();
         frond = null;
         sky = null;
         ps = null;
@@ -96,7 +96,7 @@ public class Stage
         sl = null;
         bomb = null;
         up = null;
-        items = new Array<ItemParent>();
+        bounds = new Boundary();
         
         // Load level file
         Pixmap px = new Pixmap(Gdx.files.internal(filename));
@@ -124,7 +124,7 @@ public class Stage
                 {
                     obj = new Sky();
                     offsetHeight = -1.0f;
-                    obj.pos.set(3f, 1);
+                    obj.pos.set(3.25f, 1);
                     sky = (Sky)obj;
                 }
                 else if (BLOCK_TYPE.BOSS.sameColor(curpx))  // Boss
@@ -151,7 +151,7 @@ public class Stage
                 {
                 	obj = new ScoreSmall();
                 	offsetHeight = -0.5f;
-                	obj.pos.set(pxX, baseHeight * obj.dim.y + offsetHeight);
+                	obj.pos.set(2, 6);
                 	items.add((ScoreSmall)obj);
                 }
                 else if (BLOCK_TYPE.SCORELARGE.sameColor(curpx))
@@ -183,6 +183,11 @@ public class Stage
             }
         }
         
+        for (int i = 0; i < items.size; i++)
+        {
+        	WorldController.itemPhysics(items.get(i));
+        }
+        
         // Decoration
         bg = new BackgroundNormal();
         bg.origin.set(0,0);
@@ -200,10 +205,10 @@ public class Stage
     {
     	bounds.update(dt);
     	bg.update(dt);
-    	frond.update(dt);
-    	sky.update(dt);
     	for (ItemParent item : items)
     		item.update(dt);
+    	frond.update(dt);
+    	sky.update(dt);
     	overlay.update(dt);
     }
     
