@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
@@ -218,4 +220,43 @@ public class Assets implements Disposable, AssetErrorListener
         	pickup[5] = new AtlasRegion(a.findRegion("score_large"));
         }
     }
+    
+    /**
+	 * Loads sound effects into the game engine and assigns them to instances
+	 */
+	public class AssetSounds
+	{
+		public final Sound bossDie;
+		public final Sound lifeUp;
+		public final Sound playerDie;
+		public final Sound playerShoot;
+		public final Sound powerUp;
+		public final Sound selected;
+		public final Sound twirl;
+
+		public AssetSounds(AssetManager am)
+		{
+			bossDie = am.get("sounds/enep01.wav", Sound.class);
+			lifeUp = am.get("sounds/extend.wav", Sound.class);
+			playerDie = am.get("sounds/pldead00.wav", Sound.class);
+			playerShoot = am.get("sounds/plst00.wav", Sound.class);
+			powerUp = am.get("sounds/powerup.wav", Sound.class);
+			selected = am.get("sounds/ok00.wav", Sound.class);
+			twirl = am.get("sounds/kira00.wav", Sound.class);
+		}
+	}
+
+
+	/**
+	 * Loads music into game engine and assigns it to an instance
+	 */
+	public class AssetMusic
+	{
+		public final Music song01;
+
+		public AssetMusic(AssetManager am)
+		{
+			song01 = am.get("music/dream_land.mp3", Music.class);
+		}
+	}
 }
