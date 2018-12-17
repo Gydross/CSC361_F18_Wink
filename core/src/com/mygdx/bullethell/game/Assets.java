@@ -4,7 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -24,6 +28,8 @@ public class Assets implements Disposable, AssetErrorListener
     public static final Assets instance = new Assets();
     
     private AssetManager am;
+	public AssetSounds sounds;
+	public AssetMusic music;
     
     // Instances of asset internal classes.
     public AssetSky sky;
@@ -68,6 +74,8 @@ public class Assets implements Disposable, AssetErrorListener
         boundary = new AssetBounds(a);
         pickups = new AssetPickup(a);
         levelDecoration = new AssetLevelDecoration(a);
+        sounds = new AssetSounds(am);
+		music = new AssetMusic(am);
     }
     
     /**
@@ -105,12 +113,32 @@ public class Assets implements Disposable, AssetErrorListener
     
     /**
      * Compact texture atlas asset loader for Sky.
+     * Loads her idle animations, as well as the animations that play when she moves.
      * @author Aaron Wink
      */
     public class AssetSky {
         public final AtlasRegion sky;
+        public final Animation skyNormal;
+        public final Animation skyLeft;
+        public final Animation skyRight;
         public AssetSky(TextureAtlas a) {
             sky = a.findRegion("sky");
+            
+            Array<AtlasRegion> regions = null;
+            
+            // Animation: Sky Idle
+            regions = a.findRegions("sky_normal");
+            skyNormal = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+            
+            // Animation: Sky Left
+            regions = a.findRegions("sky_left");
+            skyLeft = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+            
+            // Animation: Sky Right
+            regions = a.findRegions("sky_right");
+            skyRight = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+            
+            //regions = new Array<AtlasRegion>();
         }
     }
     
@@ -131,8 +159,15 @@ public class Assets implements Disposable, AssetErrorListener
      */
     public class AssetFrond {
         public final AtlasRegion frond;
+        public final Animation frondSpin;
         public AssetFrond(TextureAtlas a) {
             frond = a.findRegion("frond");
+            
+            Array<AtlasRegion> regions = null;
+            
+            // Animation: Spin!
+            regions = a.findRegions("frond_spin");
+            frondSpin = new Animation(1.0f / 10.0f, regions);
         }
     }
     
@@ -189,4 +224,43 @@ public class Assets implements Disposable, AssetErrorListener
         	pickup[5] = new AtlasRegion(a.findRegion("score_large"));
         }
     }
+    
+    /**
+	 * Loads sound effects into the game engine and assigns them to instances
+	 */
+	public class AssetSounds
+	{
+		public final Sound bossDie;
+		public final Sound lifeUp;
+		public final Sound playerDie;
+		public final Sound playerShoot;
+		public final Sound powerUp;
+		public final Sound selected;
+		public final Sound twirl;
+
+		public AssetSounds(AssetManager am)
+		{
+			bossDie = am.get("sounds/enep01.wav", Sound.class);
+			lifeUp = am.get("sounds/extend.wav", Sound.class);
+			playerDie = am.get("sounds/pldead00.wav", Sound.class);
+			playerShoot = am.get("sounds/plst00.wav", Sound.class);
+			powerUp = am.get("sounds/powerup.wav", Sound.class);
+			selected = am.get("sounds/ok00.wav", Sound.class);
+			twirl = am.get("sounds/kira00.wav", Sound.class);
+		}
+	}
+
+
+	/**
+	 * Loads music into game engine and assigns it to an instance
+	 */
+	public class AssetMusic
+	{
+		public final Music song01;
+
+		public AssetMusic(AssetManager am)
+		{
+			song01 = am.get("music/dream_land.mp3", Music.class);
+		}
+	}
 }

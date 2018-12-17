@@ -110,6 +110,7 @@ public class WorldController extends InputAdapter
     	} else {
     		stage.sky.vel.x = 0;
     		stage.sky.setMoving(false, false);
+    		stage.frond.spin();
     	}
 
     	// Is she moving vertically?
