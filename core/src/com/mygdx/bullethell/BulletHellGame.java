@@ -1,9 +1,17 @@
 package com.mygdx.bullethell;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.mygdx.bullethell.game.Assets;
+//import com.libgdx.csc361_f18_g8.util.AudioManager;
+//import com.libgdx.csc361_f18_g8.util.GamePreferences;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.bullethell.game.WorldController;
 import com.mygdx.bullethell.game.WorldRenderer;
+import com.mygdx.bullethell.screens.MenuScreen;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.assets.AssetManager;
@@ -14,12 +22,14 @@ import com.mygdx.bullethell.game.Assets;
  * Loads up the game.
  * @author Aaron Wink
  */
-public class BulletHellGame implements ApplicationListener
+public class BulletHellGame extends Game
 {
     private static final String TAG = BulletHellGame.class.getName();
     private WorldController wc;
     private WorldRenderer wr;
     private boolean isPause;
+    
+
     
     @Override
     public void create()
@@ -34,6 +44,9 @@ public class BulletHellGame implements ApplicationListener
         wc = new WorldController();
         wr = new WorldRenderer(wc);
         isPause = false;
+        
+        // Start game at menu screen
+        //setScreen(new MenuScreen(this));
     }
 
     /**
@@ -95,5 +108,5 @@ public class BulletHellGame implements ApplicationListener
     public WorldRenderer getWR()
     {
     	return wr;
-    }
+    }/**/
 }

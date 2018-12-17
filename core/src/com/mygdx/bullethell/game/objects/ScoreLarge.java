@@ -22,10 +22,10 @@ public class ScoreLarge extends ItemParent
 	private void init()
 	{
 		this.myReg = getTexReg();
-		dim.set(16 * boundScale, 16 * boundScale);
+		dim.set(2, 2);
 		origin.set(dim.x / 2, dim.y / 2);
 		bounds.set(0, 0, dim.x, dim.y);
-		termVel.y = 0.075f;
+		termVel.y = 2;
 		
 		collected = false;
 		outOfBounds = false;
