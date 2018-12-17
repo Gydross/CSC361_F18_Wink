@@ -3,6 +3,7 @@ package com.mygdx.bullethell.game.objects;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.bullethell.game.Assets;
 import com.mygdx.bullethell.game.WorldController;
+import com.mygdx.bullethell.util.AudioManager;
 
 /**
  * The extra life object, or 1-Up.
@@ -40,6 +41,7 @@ public class ExtraLife extends ItemParent
 	@Override
 	public void specialFunction() {
 		WorldController.lives += 1;
+		AudioManager.instance.play(Assets.instance.sounds.lifeUp);
 	}
 
 }

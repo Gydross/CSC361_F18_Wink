@@ -28,6 +28,8 @@ public class Assets implements Disposable, AssetErrorListener
     public static final Assets instance = new Assets();
     
     private AssetManager am;
+	public AssetSounds sounds;
+	public AssetMusic music;
     
     // Instances of asset internal classes.
     public AssetSky sky;
@@ -72,6 +74,8 @@ public class Assets implements Disposable, AssetErrorListener
         boundary = new AssetBounds(a);
         pickups = new AssetPickup(a);
         levelDecoration = new AssetLevelDecoration(a);
+        sounds = new AssetSounds(am);
+		music = new AssetMusic(am);
     }
     
     /**

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.bullethell.game.Assets;
+import com.mygdx.bullethell.util.AudioManager;
 import com.mygdx.bullethell.util.Constants;
 
 /**
@@ -155,6 +156,8 @@ public class Sky extends AbstractGameObject
 	public void setShooting(boolean shoot) 
 	{
 		isShooting = shoot;
+		if (shoot)
+			AudioManager.instance.play(Assets.instance.sounds.playerShoot);
 	}
 
 }
