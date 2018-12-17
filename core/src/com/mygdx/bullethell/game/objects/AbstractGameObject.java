@@ -2,6 +2,7 @@ package com.mygdx.bullethell.game.objects;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -29,6 +30,10 @@ public abstract class AbstractGameObject
     public Vector2 accel;
     public Rectangle bounds;
     public Body body;
+    
+    public float stateTime;
+    public Animation anim;
+    
     protected final float sc = Constants.SCALEONE;  // Because I'm tired of typing the whole thing.
     
 	protected final float boundScale = 0.5f * sc;
@@ -46,6 +51,16 @@ public abstract class AbstractGameObject
         accel = new Vector2();
         bounds = new Rectangle();
     }
+    
+    /**
+	 * Changes the current animation for the object and resets the state time.
+	 * @param anim - The animation to be played.
+	 */
+	public void setAnimation (Animation anim) 
+	{
+		this.anim = anim;
+		stateTime = 0;
+	}
     
     /**
      * Updates the current horizontal speed of the object.
@@ -93,6 +108,8 @@ public abstract class AbstractGameObject
     
     public void update(float dt)
     {
+    	stateTime += dt;
+    	
     	if (body == null)
     	{
     		updateMotionX(dt);

@@ -6,28 +6,28 @@ filter: Nearest,Nearest
 repeat: none
 bomb
   rotate: false
-  xy: 284, 44
+  xy: 388, 44
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 bounds_collision_testmarker
   rotate: false
-  xy: 364, 46
+  xy: 468, 46
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 bullet_grey_small
   rotate: false
-  xy: 284, 34
+  xy: 388, 34
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 extra_life
   rotate: false
-  xy: 304, 44
+  xy: 408, 44
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
@@ -76,7 +76,7 @@ frond_spin
   index: 4
 power_large
   rotate: false
-  xy: 324, 44
+  xy: 428, 44
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
@@ -90,7 +90,7 @@ power_small
   index: -1
 score_large
   rotate: false
-  xy: 344, 44
+  xy: 448, 44
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
@@ -109,6 +109,13 @@ sky
   orig: 24, 32
   offset: 0, 0
   index: -1
+sky_normal
+  rotate: false
+  xy: 206, 30
+  size: 24, 32
+  orig: 24, 32
+  offset: 0, 0
+  index: 1
 sky_bullet
   rotate: false
   xy: 2, 2
@@ -116,17 +123,45 @@ sky_bullet
   orig: 8, 10
   offset: 0, 0
   index: -1
-sky_move_left
+sky_left
   rotate: false
   xy: 232, 30
   size: 24, 32
   orig: 24, 32
   offset: 0, 0
-  index: -1
-sky_move_right
+  index: 1
+sky_left
   rotate: false
   xy: 258, 30
   size: 24, 32
   orig: 24, 32
   offset: 0, 0
-  index: -1
+  index: 2
+sky_normal
+  rotate: false
+  xy: 284, 30
+  size: 24, 32
+  orig: 24, 32
+  offset: 0, 0
+  index: 2
+sky_normal
+  rotate: false
+  xy: 310, 30
+  size: 24, 32
+  orig: 24, 32
+  offset: 0, 0
+  index: 3
+sky_right
+  rotate: false
+  xy: 336, 30
+  size: 24, 32
+  orig: 24, 32
+  offset: 0, 0
+  index: 1
+sky_right
+  rotate: false
+  xy: 362, 30
+  size: 24, 32
+  orig: 24, 32
+  offset: 0, 0
+  index: 2
