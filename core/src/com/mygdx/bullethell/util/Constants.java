@@ -24,6 +24,11 @@ public class Constants
     // Location of texture atlas
     public static final String TEXTURE_ATLAS_OBJECTS = "images/bhgame.atlas";
     public static final String UI_OVERLAY = "images/uioverlay.png";
+    public static final String TEXTURE_ATLAS_UI = "images/bhgame-ui.atlas";
+    public static final String TEXTURE_ATLAS_LIBGDX_UI = "images/uiskin.atlas";
+    
+    //public static final String SKIN_LIBGDX_UI = "images/uiskin.json";
+   // public static final String SKIN_BHGAME_UI = "images/bhgame-ui.json";
     
     // Location of stage file 1
     public static final String STAGE_01 = "stages/stage_01.png";
@@ -38,4 +43,5 @@ public class Constants
     public static final int BOMBS_START = 3;
 	public static final float INVINCIBILITY_DURATION = 700; // Time in ms
 	public static final float GAME_OVER_DELAY = 3;
+	
 }

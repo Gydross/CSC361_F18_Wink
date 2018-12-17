@@ -94,9 +94,9 @@ public class WorldController extends InputAdapter
      */
     private void handleUserInput(float dt)
     {
-    	float mspeed = 4 * dt;
+    	float mspeed = 128 * dt;
     	if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
-    		mspeed = 1 * dt;
+    		mspeed = 50 * dt;
     		stage.sky.setFocused(true);
     	}
 
@@ -165,12 +165,12 @@ public class WorldController extends InputAdapter
 
     	FixtureDef fd = new FixtureDef();
     	fd.shape = ps;
-    	fd.density = 10;
+    	fd.density = 0.5f;
     	fd.friction = 0.65f;
     	body.createFixture(fd);
     	ps.dispose();
     	
-    	stage.items.add(item);
+    	//stage.items.add(item);
     }
     
     @Override

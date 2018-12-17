@@ -22,10 +22,10 @@ public class ScoreSmall extends ItemParent
 	private void init()
 	{
 		this.myReg = getTexReg();
-		dim.set(8 * boundScale, 8 * boundScale);
+		dim.set(1, 1);
 		origin.set(dim.x / 2, dim.y / 2);
 		bounds.set(0, 0, dim.x, dim.y);
-		termVel.y = 0.075f;
+		termVel.y = 2;
 		
 		collected = false;
 		outOfBounds = false;

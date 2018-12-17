@@ -4,8 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
-
-import BulletHellGame;
+import com.mygdx.bullethell.BulletHellGame;
 
 public class DesktopLauncher
 {
@@ -20,7 +19,8 @@ public class DesktopLauncher
 	        s.maxHeight = 1024;
 	        s.duplicatePadding = false;
 	        
-	        TexturePacker.process(s, "assets-raw/images", "../core/assets/images", "bhgame");	        
+	        TexturePacker.process(s, "assets-raw/images", "../core/assets/images", "bhgame");
+	        TexturePacker.process(s, "assets-raw/images-ui", "../core/assets/images", "bhgame-ui");
 	    }
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		
