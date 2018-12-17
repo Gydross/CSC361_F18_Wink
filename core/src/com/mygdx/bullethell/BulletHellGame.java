@@ -5,13 +5,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.mygdx.bullethell.game.Assets;
-//import com.libgdx.csc361_f18_g8.util.AudioManager;
-//import com.libgdx.csc361_f18_g8.util.GamePreferences;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.bullethell.game.WorldController;
 import com.mygdx.bullethell.game.WorldRenderer;
 import com.mygdx.bullethell.screens.MenuScreen;
+import com.mygdx.bullethell.util.AudioManager;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.assets.AssetManager;
@@ -44,6 +43,7 @@ public class BulletHellGame extends Game
         wc = new WorldController();
         wr = new WorldRenderer(wc);
         isPause = false;
+        AudioManager.instance.play(Assets.instance.music.song01, 1);
         
         // Start game at menu screen
         //setScreen(new MenuScreen(this));

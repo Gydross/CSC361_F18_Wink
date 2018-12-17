@@ -3,6 +3,7 @@ package com.mygdx.bullethell.game.objects;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.bullethell.game.Assets;
 import com.mygdx.bullethell.game.WorldController;
+import com.mygdx.bullethell.util.AudioManager;
 
 /**
  * The large power pickup.
@@ -39,6 +40,7 @@ public class PowerLarge extends ItemParent
 	@Override
 	public void specialFunction() {
 		WorldController.power += 10;
+		AudioManager.instance.play(Assets.instance.sounds.powerUp);
 	}
 
 }
