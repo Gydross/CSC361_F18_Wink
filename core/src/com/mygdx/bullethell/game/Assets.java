@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.bullethell.util.Constants;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -105,12 +107,32 @@ public class Assets implements Disposable, AssetErrorListener
     
     /**
      * Compact texture atlas asset loader for Sky.
+     * Loads her idle animations, as well as the animations that play when she moves.
      * @author Aaron Wink
      */
     public class AssetSky {
         public final AtlasRegion sky;
+        public final Animation skyNormal;
+        public final Animation skyLeft;
+        public final Animation skyRight;
         public AssetSky(TextureAtlas a) {
             sky = a.findRegion("sky");
+            
+            Array<AtlasRegion> regions = null;
+            
+            // Animation: Sky Idle
+            regions = a.findRegions("sky_normal");
+            skyNormal = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+            
+            // Animation: Sky Left
+            regions = a.findRegions("sky_left");
+            skyLeft = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+            
+            // Animation: Sky Right
+            regions = a.findRegions("sky_right");
+            skyRight = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+            
+            //regions = new Array<AtlasRegion>();
         }
     }
     
@@ -131,8 +153,15 @@ public class Assets implements Disposable, AssetErrorListener
      */
     public class AssetFrond {
         public final AtlasRegion frond;
+        public final Animation frondSpin;
         public AssetFrond(TextureAtlas a) {
             frond = a.findRegion("frond");
+            
+            Array<AtlasRegion> regions = null;
+            
+            // Animation: Spin!
+            regions = a.findRegions("frond_spin");
+            frondSpin = new Animation(1.0f / 10.0f, regions);
         }
     }
     
